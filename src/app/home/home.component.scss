@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+
+/* Content
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+main {
+  background-color: #cfe5d8;
+  font-family: "Inconsolata", monospace;
+  font-size: 18px;
+  line-height: 1.25;
+  color: #638697;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+header,
+article {
+  padding: 5vw;
+  padding-top: 6vw;
+}
+
+header {
+  padding-right: 0;
+}
+
+h2 {
+  font-size: 49px;
+  font-weight: bold;
+  transform: rotate(-90deg);
+  margin: 0;
+  margin-left: -332px;
+  margin-top: 38px;
+  cursor: vertical-text;
+}
+
+article {
+//   width: 46%;
+}
+
+img {
+  height: 392px;
+  margin-left: 24px;
+  margin-top: -97px;
+}
+
+a {
+  font-size: 90%;
+  color: #ce9c60;
+  text-decoration: none;
+  user-select: text;
+  -webkit-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+a:after {
+  content: ">";
+  position: absolute;
+  padding-left: 4px;
+  -webkit-transition: all 300ms ease;
+  -o-transition: all 300ms ease;
+  transition: all 300ms ease;
+  font-family: cursive;
+}
+
+a:hover {
+  color: #b78d3e !important;
+}
+
+a:hover:after,
+a:active:after {
+  padding-left: 0.5em;
+  color: #b78d3e !important;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  line-height: 1.7;
+}
+
+li label {
+  width: 25%;
+  font-weight: bold;
+  user-select: none;
+}
+
+.email {
+  line-height: 1.5;
+}
+
+.biography {
+  max-width: 450px;
+}
+
+.info {
+  user-select: none;
+}
+
+.info i {
+  font-weight: bold;
+  margin-right: 1em;
+  user-select: text;
+}
+
+@media (max-width: 825px) {
+  main {
+    display: block !important;
+  }
+
+  header {
+    padding-bottom: 0;
+  }
+  h2 {
+    margin-left: -182px;
+    margin-top: 164px;
+    width: 392px;
+  }
+  img {
+    height: 392px;
+    margin-left: 43px;
+    margin-top: -226px;
+  }
+
+  article {
+    width: 75%;
+    margin-left: 25%;
+  }
+
+  body {
+    font-size: 16px;
+  }
+
+  li label {
+    width: 29%;
+  }
+}
+
+@media (max-width: 650px) {
+  article {
+    width: 88%;
+    padding: 6%;
+    margin-left: 0;
+  }
+}

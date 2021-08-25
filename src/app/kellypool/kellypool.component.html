@@ -1,0 +1,23 @@
+<div class="viewcontainer">
+    <h1>Kelly Pool Generator</h1>
+    <label for="setPlayerCount">Player Count:</label>
+    <select #setPlayerCount name="setPlayerCount" (change)="changePlayerCount(setPlayerCount.value)">
+        <option value="" disabled selected hidden>Select Player Count...</option>
+        <option *ngFor="let count of totalPlayers" [value]="count">{{count}}</option>
+    </select>
+
+    <ul class="playerList" [class.shake]="reset">
+        <li *ngFor="let player of players" class="playerRow">
+            <span>Player {{player.playerId}} </span>
+            <div *ngIf="player.visible">
+                <img src="../../assets/poolballs/{{player.assignedBall}}.svg" alt="{{player.assignedBall}} ball">
+            </div>
+            <button (click)="changeVisibility(player.playerId)">
+            <span *ngIf="!player.visible">Show</span>
+            <span *ngIf="player.visible">Hide</span>
+            </button>
+        </li>
+    </ul>
+
+    <button *ngIf="players.length" (click)="generateBalls()">Reassign Balls</button>
+</div>

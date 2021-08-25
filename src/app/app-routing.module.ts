@@ -1,10 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { KellypoolComponent } from './kellypool/kellypool.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'kellypool', component: KellypoolComponent },
+  { path: 'kellyPoolGenerator.html', redirectTo: 'kellypool', pathMatch: 'full' },
+  { path: 'kellyPoolGenerator.html', redirectTo: 'kellyPoolGenerator', pathMatch: 'full' },
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    initialNavigation: 'enabled'
+})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

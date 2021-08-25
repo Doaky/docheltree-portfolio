@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+::ng-deep body {
+  background-color: #49796b;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  line-height: 2.35;
+  margin: 0;
+}
+
+.viewcontainer {
+  padding: 24px;
+  margin: 0 auto;
+  max-width: 1000px;
+  font-variant: petite-caps;
+  color: #fff;
+
+  label {
+    font-weight: bold;
+    margin-right: 12px;
+  }
+
+  select {
+    font-family: 'Montserrat', sans-serif;
+    padding: 2px;
+    padding-left: 4px;
+    font-size: 16px;
+    border-radius: 2px;
+    background: none;
+    border: 3px solid #fff;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  select option {
+    color: black;
+  }
+
+  button {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    background: none;
+    border: 3px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+    font-size: 16px;
+    padding: 8px;
+    height: 42px;
+  }
+}
+
+.playerList {
+  padding: 0;
+}
+
+.playerRow {
+  display: flex;
+  padding-bottom: 12px;
+  height: 40px;
+  -webkit-animation: float-in-right 0.4s ease;
+  animation: float-in-right 0.4s ease;
+
+  button {
+    margin-left: 12px;
+  }
+
+  img {
+    width: 40px;
+    padding-left: 12px;
+    -webkit-animation: float-in-left 0.3s ease;
+    animation: float-in-left 0.3s ease;
+  }
+}
+
+.shake {
+  -webkit-animation: shake 0.5s;
+  animation: shake 0.5s;
+}
+
+/* Animations
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@keyframes float-in-right {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-200px, 0, 0);
+    transform: translate3d(-200px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes float-in-left {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(200px, 0, 0);
+    transform: translate3d(200px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
