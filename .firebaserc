@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "docheltree-portfolio": {
+      "hosting": {
+        "docheltree-portfolio": [
+          "docheltree-portfolio"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "docheltree-portfolio"
+  }
+}
