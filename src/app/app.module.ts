@@ -42,7 +42,6 @@ const firebaseConfig = {
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,6 +11,7 @@
             <span>Player {{player.playerId}} </span>
             <div *ngIf="player.visible">
                 <img src="../../assets/poolballs/{{player.assignedBall}}.svg" alt="{{player.assignedBall}} ball">
+                <span class="pool-ball-text">{{player.assignedBall}}</span>
             </div>
             <button (click)="changeVisibility(player.playerId)">
             <span *ngIf="!player.visible">Show</span>

@@ -70,12 +70,20 @@
     padding-left: 12px;
     -webkit-animation: float-in-left 0.3s ease;
     animation: float-in-left 0.3s ease;
+    visibility: hidden;
   }
 }
 
 .shake {
   -webkit-animation: shake 0.5s;
   animation: shake 0.5s;
+}
+
+.pool-ball-text {
+  position: relative;
+  right: 25px;
+  bottom: 13px;
+  z-index: -1;
 }
 
 /* Animations
