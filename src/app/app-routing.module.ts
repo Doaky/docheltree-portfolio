@@ -6,8 +6,8 @@ import { KellypoolComponent } from './kellypool/kellypool.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'kellypool', component: KellypoolComponent },
-  { path: 'kellyPoolGenerator.html', redirectTo: 'kellypool', pathMatch: 'full' },
-  { path: 'kellyPoolGenerator', redirectTo: 'kellypool', pathMatch: 'full' },
+  { path: 'kellyPoolGenerator.html', component: KellypoolComponent },
+  { path: 'kellyPoolGenerator', component: KellypoolComponent },
 ];
 
 @NgModule({
