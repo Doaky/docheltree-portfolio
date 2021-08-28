@@ -1,4 +1,4 @@
-<div class="viewcontainer">
+<div class="view-container">
     <h1>Kelly Pool Generator</h1>
     <label for="setPlayerCount">Player Count:</label>
     <select #setPlayerCount name="setPlayerCount" (change)="changePlayerCount(setPlayerCount.value)">
@@ -20,5 +20,5 @@
         </li>
     </ul>
 
-    <button *ngIf="players.length" (click)="generateBalls()">Reassign Balls</button>
+    <button *ngIf="players.length" (click)="generateBalls(false)">Reassign Balls</button>
 </div>

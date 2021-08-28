@@ -22,7 +22,10 @@ export class KellypoolComponent implements OnInit {
     this.metaService.addTags([
       {name: 'keywords', content: 'Angular, Universal, Example'},
       {name: 'description', content: 'Kelly Pool Ball Generator. Select the number of players and pass your phone around!'},
-      {name: 'robots', content: 'index, follow'}
+      {name: 'robots', content: 'index, follow'},
+      {name: 'og:title', content:'Kelly Pool Generator'},
+      {name: 'og:image', content:'../../assets/kelly_pool_logo.png'},
+      {name: 'og:description', content:'Kelly Pool Ball Generator. Select the number of players and pass your phone around!'}
     ]);
   }
 
@@ -32,10 +35,10 @@ export class KellypoolComponent implements OnInit {
       assignedBall: '',
       visible: false
     }))
-    this.generateBalls();
+    this.generateBalls(true);
   }
 
-  generateBalls() {
+  generateBalls(initial: boolean) {
     var availableBalls = [...this.totalPlayers];
     for (var i = 0; i < this.players.length; i++) {
       var rand = Math.floor((Math.random() * (15 - (i+1))) + 0);
@@ -44,11 +47,14 @@ export class KellypoolComponent implements OnInit {
       availableBalls.splice(rand, 1);
     }
 
-    this.reset = true;
+    // Only add class for subsequent runs
+    if (!initial) {
+      this.reset = true;
 
-    setTimeout(()=>{
-      this.reset = false;
-    }, 500);
+      setTimeout(()=>{
+        this.reset = false;
+      }, 500);
+    }
   }
 
   changeVisibility(playerId: string) {
