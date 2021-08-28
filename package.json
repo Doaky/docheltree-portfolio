@@ -10,7 +10,7 @@
     "dev:ssr": "ng run docheltree-portfolio:serve-ssr",
     "serve:ssr": "node dist/docheltree-portfolio/server/main.js",
     "build:ssr": "ng build && ng run docheltree-portfolio:server",
-    "prerender": "ng run docheltree-portfolio:prerender",
+    "prerender": "ng run docheltree-portfolio:prerender"
   },
   "private": true,
   "dependencies": {
