@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'kellypool', component: KellypoolComponent },
   { path: 'kellyPoolGenerator.html', redirectTo: 'kellypool', pathMatch: 'full' },
-  { path: 'kellyPoolGenerator.html', redirectTo: 'kellyPoolGenerator', pathMatch: 'full' },
+  { path: 'kellyPoolGenerator', redirectTo: 'kellypool', pathMatch: 'full' },
 ];
 
 @NgModule({
