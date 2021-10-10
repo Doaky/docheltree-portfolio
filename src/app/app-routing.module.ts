@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'kellypool', component: KellypoolComponent },
   { path: 'kellyPoolGenerator', redirectTo: 'kellypool', pathMatch: 'full' },
   { path: 'kellyPoolGenerator.html', redirectTo: 'kellypool', pathMatch: 'full' },
+  { path: 'kellypoolgenerator.html', redirectTo: 'kellypool', pathMatch: 'full' },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
 
