@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'kellyPoolGenerator', redirectTo: 'kellypool', pathMatch: 'full' },
   { path: 'kellyPoolGenerator.html', redirectTo: 'kellypool', pathMatch: 'full' },
   { path: 'kellypoolgenerator.html', redirectTo: 'kellypool', pathMatch: 'full' },
-  { path: '**', redirectTo: '/', pathMatch: 'full' },
+  // { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
 
 @NgModule({
