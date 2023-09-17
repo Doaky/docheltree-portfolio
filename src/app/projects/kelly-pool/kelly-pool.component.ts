@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-kellypool',
-  templateUrl: './kellypool.component.html',
-  styleUrls: ['./kellypool.component.scss']
+  selector: 'app-kelly-pool',
+  templateUrl: './kelly-pool.component.html',
+  styleUrls: ['./kelly-pool.component.scss']
 })
-export class KellypoolComponent implements OnInit {
+export class KellyPoolComponent implements OnInit {
 
   constructor(
     private titleService: Title,

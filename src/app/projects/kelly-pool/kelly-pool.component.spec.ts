@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KellypoolComponent } from './kellypool.component';
+import { KellyPoolComponent } from './kelly-pool.component';
 
-describe('KellypoolComponent', () => {
-  let component: KellypoolComponent;
-  let fixture: ComponentFixture<KellypoolComponent>;
+describe('KellyPoolComponent', () => {
+  let component: KellyPoolComponent;
+  let fixture: ComponentFixture<KellyPoolComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ KellypoolComponent ]
+      declarations: [ KellyPoolComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(KellypoolComponent);
+    fixture = TestBed.createComponent(KellyPoolComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
