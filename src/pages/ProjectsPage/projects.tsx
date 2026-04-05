@@ -3,7 +3,7 @@ import styles from './projects.module.scss';
 function Projects () {
   return (
 
-    <main>
+    <main className={styles.main}>
         <div className={styles.multiHeader}>
             <h1>projects</h1>
             <h1>projects</h1>

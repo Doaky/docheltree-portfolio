@@ -40,4 +40,21 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script src="src\grained.min.js"></script>
+  <script>
+    var options = {
+      "animate": true,
+      "patternWidth": 600,
+      "patternHeight": 600,
+      "grainOpacity": 0.15,
+      "grainDensity": 1,
+      "grainWidth": 0.7,
+      "grainHeight": 0.7,
+    }
+    grained("#hero", options);
+    
+    /*
+    background-color :rgb(204, 204, 204)
+    */
+    </script>
 </html>

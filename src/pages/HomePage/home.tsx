@@ -1,8 +1,20 @@
 import styles from './home.module.scss';
 
 function Home () {
+  var options = {
+    animate: true,
+    patternWidth: 100,
+    patternHeight: 100,
+    grainOpacity: 0.05,
+    grainDensity: 1,
+    grainWidth: 1,
+    grainHeight: 1
+  };
+  grained('grained', options);
+
   return (
     <main>
+      <div className="grained"></div>
       <header className={styles.s}>
         <h2>Daniel Ocheltree</h2>
         <img src={require('../../assets/profile.webp')} alt="profile picture" width="294" height="392" />
