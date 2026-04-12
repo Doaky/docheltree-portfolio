@@ -1,6 +1,7 @@
 import styles from './home.module.scss';
+import profileImg from '../../assets/profile.webp';
 
-function Home () {
+function Home() {
   var options = {
     animate: true,
     patternWidth: 100,
@@ -17,7 +18,7 @@ function Home () {
       <div className="grained"></div>
       <header className={styles.s}>
         <h2>Daniel Ocheltree</h2>
-        <img src={require('../../assets/profile.webp')} alt="profile picture" width="294" height="392" />
+        <img src={profileImg} alt="profile picture" width="294" height="392" className={styles.profileImg} />
       </header>
 
       <article>

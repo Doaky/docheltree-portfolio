@@ -1,0 +1,459 @@
+// ─── Page shell ───────────────────────────────────────────────────────────────
+
+.page {
+  min-height: 100dvh;
+  background: #0d1f16;
+  color: #e8f5ee;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.gradientBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120vmax at 50% 50%, rgba(74, 222, 128, 0.22), transparent);
+  animation: gradientEnter 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.gradientBgExit {
+  animation: gradientExit 320ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes gradientEnter {
+  from { transform: scale(0.96); }
+  to   { transform: scale(1); }
+}
+
+@keyframes gradientExit {
+  from { transform: scale(1); }
+  to   { transform: scale(1.05); }
+}
+
+.topBar {
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.backLink {
+  color: #6dbf8a;
+  text-decoration: none;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+
+  &:hover { color: #a8e6bc; }
+  &:after { content: none; }
+}
+
+.legacyLink {
+  color: #6dbf8a;
+  text-decoration: none;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+
+  &:hover { opacity: 1; }
+  &:after { content: none; }
+}
+
+// ─── Setup screen ─────────────────────────────────────────────────────────────
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 1.5rem 3rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: screenEnter 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.screenExit {
+  animation: screenExit 320ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes screenEnter {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes screenExit {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.05); }
+}
+
+.title {
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #a8c8b4;
+  margin: 0;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.stepBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(109, 191, 138, 0.3);
+  background: var(--surface-1);
+  color: #e8f5ee;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms;
+  backdrop-filter: blur(8px);
+
+  &:hover:not(:disabled) {
+    border-color: rgba(109, 191, 138, 0.6);
+    background: rgba(45, 90, 61, 0.5);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+.stepValueWrapper {
+  min-width: 2.5rem;
+  height: 3.5rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepValue {
+  font-size: 2.5rem;
+  font-weight: 700;
+  min-width: 2.5rem;
+  text-align: center;
+  display: block;
+}
+
+.stepValueUp {
+  animation: stepSlideDown 160ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.stepValueDown {
+  animation: stepSlideUp 160ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes stepSlideDown {
+  from { opacity: 0; transform: translateY(-60%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes stepSlideUp {
+  from { opacity: 0; transform: translateY(60%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// ─── Buttons ──────────────────────────────────────────────────────────────────
+
+.primaryBtn {
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  border: none;
+  background: #4ade80;
+  color: #0a1a10;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 150ms, transform 100ms;
+
+  &:hover { background: #86efac; }
+  &:active { transform: scale(0.97); }
+}
+
+.secondaryBtn {
+  padding: 0 2rem;
+  height: 3rem;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  border-radius: 9999px;
+  border: 2px solid rgba(109, 191, 138, 0.4);
+  background: transparent;
+  color: #a8c8b4;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-width: 13rem;
+  transition: border-color 150ms, color 150ms;
+
+  &:hover:not(:disabled) {
+    border-color: #6dbf8a;
+    color: #e8f5ee;
+  }
+
+  &:disabled { cursor: default; }
+}
+
+.ghostBtn {
+  padding: 0 2rem;
+  height: 3rem;
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: 9999px;
+  border: 2px solid rgba(239, 68, 68, 0.45);
+  background: transparent;
+  color: #a8c8b4;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 150ms, border-color 150ms;
+
+  &:hover:not(:disabled) { color: #e8f5ee; border-color: rgba(239, 68, 68, 0.75); }
+  &:disabled { cursor: default; opacity: 0.4; }
+}
+
+.ghostBtnConfirm {
+  color: #f87171;
+
+  &:hover { color: #fca5a5; }
+}
+
+.ghostBtnHideAll {
+  border-color: rgba(239, 68, 68, 0.45);
+  color: #f87171;
+
+  &:hover:not(:disabled) { color: #fca5a5; border-color: rgba(239, 68, 68, 0.75); }
+}
+
+.secondaryBtnActive {
+  color: #4ade80;
+  animation: shufflePulse 0.45s ease both;
+}
+
+.playerRowShuffling {
+  animation: shufflePulse ease both;
+  cursor: default;
+  pointer-events: none;
+}
+
+@keyframes shufflePulse {
+  0%,  100% { transform: translateX(0); }
+  25%        { transform: translateX(-3px); }
+  75%        { transform: translateX(3px); }
+}
+
+@keyframes shufflePulseAlt {
+  0%,  100% { transform: translateX(0); }
+  25%        { transform: translateX(3px); }
+  75%        { transform: translateX(-3px); }
+}
+
+.playerRowShufflingAlt {
+  animation: shufflePulseAlt ease both;
+  cursor: default;
+  pointer-events: none;
+}
+
+// ─── Game screen ──────────────────────────────────────────────────────────────
+
+.gameScreen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1.5rem 2.5rem;
+  gap: 2rem;
+}
+
+.playerList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.playerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(19, 43, 30, 0.55);
+  border: 1px solid rgba(109, 191, 138, 0.15);
+  border-radius: 12px;
+  height: 52px;
+  padding: 0 1.25rem;
+  user-select: none;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 150ms, border-color 150ms;
+  &:hover { background: rgba(26, 61, 42, 0.65); border-color: rgba(109, 191, 138, 0.3); }
+  &:active { background: rgba(15, 35, 24, 0.7); }
+}
+
+.playerRowFadeIn {
+  animation: rowFadeIn 300ms ease both;
+}
+
+@keyframes rowFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.playerLabel {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #c8e8d4;
+}
+
+.gameActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.gameActionsRow {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    width: 100%;
+
+    .primaryBtn,
+    .secondaryBtn {
+      width: 100%;
+    }
+  }
+}
+
+// Make reveal all full-width on mobile (it sits outside .gameActionsRow)
+@media (max-width: 480px) {
+  .ghostBtn {
+    width: 100%;
+  }
+}
+
+// ─── Flip card ────────────────────────────────────────────────────────────────
+
+.flipCard {
+  width: 40px;
+  height: 40px;
+  perspective: 400px;
+  flex-shrink: 0;
+}
+
+.flipInner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flipCard.flipped .flipInner {
+  transform: rotateY(180deg);
+}
+
+.flipFront,
+.flipBack {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flipFront {
+  background: transparent;
+}
+
+.flipBack {
+  transform: rotateY(180deg);
+}
+
+// ─── Question ball ────────────────────────────────────────────────────────────
+
+.questionBall {
+  border-radius: 50%;
+  background: #1a3326;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.questionInner {
+  border-radius: 50%;
+  background: #2d5a3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #86efac;
+  font-weight: 700;
+  line-height: 1;
+}
+
+// ─── Pool ball ────────────────────────────────────────────────────────────────
+
+.poolBall {
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset -4px -4px 8px rgba(0, 0, 0, 0.35),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.25),
+    0 4px 16px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.stripe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 42%;
+  top: 29%;
+}
+
+.ballNumber {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #111;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.questionMark {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4ade80;
+  user-select: none;
+}

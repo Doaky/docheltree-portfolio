@@ -1,0 +1,227 @@
+@keyframes shake {
+  from, to { transform: translate3d(0, 0, 0); }
+  10%, 30%, 50%, 70%, 90% { transform: translate3d(-10px, 0, 0); }
+  20%, 40%, 60%, 80% { transform: translate3d(10px, 0, 0); }
+}
+
+@keyframes float-in-right {
+  from { transform: translate3d(100%, 0, 0); opacity: 0; }
+  to { transform: translate3d(0, 0, 0); opacity: 1; }
+}
+
+@keyframes float-in-left {
+  from { transform: translate3d(-100%, 0, 0); opacity: 0; }
+  to { transform: translate3d(0, 0, 0); opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.page {
+  min-height: 100vh;
+  background-color: #49796b;
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.viewContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 36px;
+  color: #fff;
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-top: 0;
+    margin-bottom: 32px;
+  }
+}
+
+.navRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.backLink {
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+
+  &:after {
+    content: none;
+  }
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.updatedLink {
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  opacity: 0.7;
+
+  &:after {
+    content: none;
+  }
+
+  &:hover {
+    color: #fff;
+    opacity: 1;
+  }
+}
+
+/* +/- Stepper */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: fit-content;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.stepperBtn {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+  width: 52px;
+  height: 52px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms ease;
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+.stepperValue {
+  font-size: 22px;
+  font-weight: 600;
+  min-width: 52px;
+  text-align: center;
+  border-left: 2px solid rgba(255, 255, 255, 0.5);
+  border-right: 2px solid rgba(255, 255, 255, 0.5);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepperLabel {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 28px 2px;
+}
+
+/* Player list */
+.playerList {
+  padding: 0;
+  list-style: none;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
+.playerRow {
+  display: flex;
+  align-items: center;
+  height: 52px;
+  margin-bottom: 4px;
+  animation: float-in-right 0.4s ease;
+}
+
+.playerLabel {
+  font-size: 16px;
+  font-weight: 500;
+  min-width: 100px;
+}
+
+.ballDisplay {
+  display: flex;
+  align-items: center;
+  flex: 1;
+
+  img {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding-left: 12px;
+    animation: float-in-left 0.3s ease;
+    background-color: #49796b;
+  }
+}
+
+.poolBallText {
+  position: relative;
+  z-index: -1;
+  right: 25px;
+  bottom: 1px;
+  animation: fade-in 0.5s;
+}
+
+/* Reveal button */
+.revealBtn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-left: auto;
+  transition: background 150ms, color 150ms;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+}
+
+/* Reassign button */
+.reassignBtn {
+  font-size: 15px;
+  font-weight: 500;
+  height: 44px;
+  padding: 0 20px;
+  cursor: pointer;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  background: none;
+  transition: background 150ms ease, border-color 150ms ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+  }
+}

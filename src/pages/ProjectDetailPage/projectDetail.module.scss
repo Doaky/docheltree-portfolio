@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+
+.main {
+  background-color: #124409;
+  background-image: url(https://grainy-gradients.vercel.app/noise.svg);
+  font-family: "Inconsolata", monospace;
+  font-size: 18px;
+  line-height: 1.25;
+  color: #f9b4a9;
+  min-height: 100vh;
+  margin: 0;
+  padding: 32px 48px;
+}
+
+.backLink {
+  display: inline-block;
+  color: #b47f40;
+  text-decoration: none;
+  margin-bottom: 32px;
+
+  &:after {
+    content: none;
+  }
+
+  &:hover {
+    color: #794f00 !important;
+  }
+}
+
+.category {
+  margin: 0 0 4px;
+  font-size: 0.85em;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.title {
+  margin: 0 0 8px;
+  font-size: 2em;
+}
+
+.date {
+  margin: 0 0 24px;
+  opacity: 0.7;
+}
+
+.image {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 24px;
+}
+
+.description {
+  max-width: 650px;
+  margin-bottom: 24px;
+}
+
+.launchLink {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: #f9b4a9;
+  text-decoration: none;
+  border: 2px solid #f9b4a9;
+  padding: 8px 16px;
+
+  &:after {
+    content: none;
+  }
+
+  &:hover {
+    background-color: #f9b4a9;
+    color: #124409 !important;
+  }
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 24px;
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  a {
+    color: #b47f40;
+    text-decoration: none;
+
+    &:hover {
+      color: #794f00;
+    }
+  }
+}
+
+.tags {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  li {
+    font-size: 0.8em;
+    opacity: 0.7;
+  }
+}

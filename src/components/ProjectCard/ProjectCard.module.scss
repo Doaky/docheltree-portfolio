@@ -1,0 +1,42 @@
+.card {
+  display: block;
+  width: 240px;
+  height: 240px;
+  padding: 8px;
+  background-color: #a5d9ba;
+  color: #124409;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:after {
+    content: none;
+  }
+
+  &:hover {
+    color: #124409 !important;
+  }
+
+  &:hover:after {
+    content: none;
+  }
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.title {
+  margin: 0 0 8px;
+}
+
+.date {
+  margin: 0 0 4px;
+  font-size: 0.8em;
+  opacity: 0.6;
+}
+
+.description {
+  margin: 0;
+  font-size: 0.9em;
+}

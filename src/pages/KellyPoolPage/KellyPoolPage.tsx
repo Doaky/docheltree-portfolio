@@ -1,0 +1,362 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import styles from './KellyPoolPage.module.scss';
+
+const TOTAL_MS = 400; // fixed duration for the reassign shake
+
+// ─── Shuffle flavour text ─────────────────────────────────────────────────────
+
+const SHUFFLE_WORDS = [
+  'Racking', 'Shuffling', 'Jumbling', 'No peeking',
+  'Shaking it up', 'Asking RNGesus', 'Rigging it',
+  // 'Rolling a D{n}' is added dynamically with the player count
+];
+
+const SHUFFLE_ANIMS: string[][] = [
+  ['⁘', '⁙', '⁘', '⁙'],
+  ['[=···]', '[·=··]', '[··=·]', '[···=]', '[··=·]', '[·=··]'],
+  ['█▓░', '▓█▓', '░▓█', '▓░▓'],
+  ['▃▅▇', '▅▇▅', '▇▅▃', '▅▃▅'],
+  ['—', '\\', '|', '/', '—', '\\', '|', '/'],
+  ['⠋', '⠙', '⠸', '⠴', '⠦', '⠇'],
+  ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'],
+  ['🕛', '🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚'],
+];
+
+function pickRandom<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+interface Player {
+  id: number;
+  ball: number;
+  revealed: boolean;
+}
+
+// ─── Ball colours ─────────────────────────────────────────────────────────────
+
+const BALL_COLORS: Record<number, string> = {
+  1: '#f5c518', 2: '#1d4ed8', 3: '#dc2626', 4: '#7c3aed',
+  5: '#ea580c', 6: '#16a34a', 7: '#92400e', 8: '#111827',
+};
+
+function getBallColor(ball: number) {
+  return BALL_COLORS[ball > 8 ? ball - 8 : ball];
+}
+
+// ─── Pool ball ────────────────────────────────────────────────────────────────
+
+function PoolBall({ ball, size = 72 }: { ball: number; size?: number }) {
+  const color = getBallColor(ball);
+  const stripe = ball > 8;
+  const numSize = Math.round(size * 0.32);
+
+  return (
+    <div
+      className={styles.poolBall}
+      style={{ width: size, height: size, backgroundColor: stripe ? '#fff' : color }}
+      aria-hidden="true"
+    >
+      {stripe && <div className={styles.stripe} style={{ backgroundColor: color }} />}
+      <span className={styles.ballNumber} style={{ fontSize: numSize, width: size * 0.44, height: size * 0.44 }}>
+        {ball}
+      </span>
+    </div>
+  );
+}
+
+function QuestionBall({ size = 72 }: { size?: number }) {
+  const numSize = Math.round(size * 0.38);
+  return (
+    <div
+      className={styles.questionBall}
+      style={{ width: size, height: size }}
+      aria-hidden="true"
+    >
+      <span
+        className={styles.questionInner}
+        style={{ fontSize: numSize, width: size * 0.54, height: size * 0.54 }}
+      >
+        ?
+      </span>
+    </div>
+  );
+}
+
+// ─── Game logic ───────────────────────────────────────────────────────────────
+
+function dealBalls(count: number): Player[] {
+  const pool = Array.from({ length: 15 }, (_, i) => i + 1);
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return Array.from({ length: count }, (_, i) => ({
+    id: i + 1, ball: pool[i], revealed: false,
+  }));
+}
+
+// ─── Setup screen ─────────────────────────────────────────────────────────────
+
+const STORAGE_KEY = 'kellypool-player-count';
+
+function getSavedCount(): number {
+  const v = parseInt(localStorage.getItem(STORAGE_KEY) ?? '', 10);
+  return v >= 1 && v <= 15 ? v : 4;
+}
+
+function SetupScreen({ onStart, onExitStart }: { onStart: (count: number) => void; onExitStart: () => void }) {
+  const [count, setCount] = useState(getSavedCount);
+  const [direction, setDirection] = useState<'up' | 'down' | null>(null);
+  const [exiting, setExiting] = useState(false);
+
+  function increment() {
+    setDirection('up');
+    setCount(c => c + 1);
+  }
+
+  function decrement() {
+    setDirection('down');
+    setCount(c => c - 1);
+  }
+
+  function handleDeal() {
+    setExiting(true);
+    onExitStart();
+    setTimeout(() => onStart(count), 300);
+  }
+
+  return (
+    <div className={`${styles.screen} ${exiting ? styles.screenExit : ''}`}>
+      <h1 className={styles.title}>Kelly Pool Generator</h1>
+      <p className={styles.subtitle}>How many players?</p>
+
+      <div className={styles.stepper}>
+        <button className={styles.stepBtn} onClick={decrement} disabled={count <= 1}>−</button>
+        <div className={styles.stepValueWrapper}>
+          <span
+            key={count}
+            className={[
+              styles.stepValue,
+              direction === 'up' ? styles.stepValueUp : '',
+              direction === 'down' ? styles.stepValueDown : '',
+            ].join(' ')}
+          >
+            {count}
+          </span>
+        </div>
+        <button className={styles.stepBtn} onClick={increment} disabled={count >= 15}>+</button>
+      </div>
+
+      <button className={styles.primaryBtn} onClick={handleDeal} disabled={exiting}>Deal balls ➔</button>
+    </div>
+  );
+}
+
+// ─── Game screen ──────────────────────────────────────────────────────────────
+
+function GameScreen({ players, onToggle, onRedeal, onNewGame, reassigning, fadeIn, onRevealAll, onHideAll, shuffleDisplay }: {
+  players: Player[];
+  onToggle: (id: number) => void;
+  onRedeal: () => void;
+  onNewGame: () => void;
+  onRevealAll: () => void;
+  onHideAll: () => void;
+  reassigning: boolean;
+  fadeIn: boolean;
+  shuffleDisplay: { word: string; frame: string };
+}) {
+  const [confirmReveal, setConfirmReveal] = useState(false);
+  const revealedCount = players.filter(p => p.revealed).length;
+  const showHideAll = revealedCount > 1;
+
+  function handleRevealAll() {
+    if (confirmReveal) {
+      setConfirmReveal(false);
+      onRevealAll();
+    } else {
+      setConfirmReveal(true);
+    }
+  }
+
+  // Reset confirm state if reassigning starts or hide-all kicks in
+  useEffect(() => {
+    if (reassigning || showHideAll) setConfirmReveal(false);
+  }, [reassigning, showHideAll]);
+
+  return (
+    <div className={styles.gameScreen}>
+      <div className={styles.playerList}>
+        {players.map((p, i) => (
+          <div
+            key={p.id}
+            className={[
+              styles.playerRow,
+              reassigning ? (i % 2 === 0 ? styles.playerRowShuffling : styles.playerRowShufflingAlt) : '',
+              (!reassigning && fadeIn) ? styles.playerRowFadeIn : '',
+            ].join(' ')}
+            style={reassigning
+              ? { animationDuration: `${TOTAL_MS}ms` }
+              : fadeIn ? { animationDelay: `${i * 50}ms` } : undefined
+            }
+            onClick={() => { if (!reassigning) onToggle(p.id); }}
+            aria-label={
+              p.revealed
+                ? `Player ${p.id}: ball ${p.ball}. Tap to hide.`
+                : `Player ${p.id}: tap to reveal your ball`
+            }
+            aria-disabled={reassigning}
+            role="button"
+            tabIndex={reassigning ? -1 : 0}
+            onKeyDown={e => { if (!reassigning && (e.key === 'Enter' || e.key === ' ')) onToggle(p.id); }}
+          >
+            <span className={styles.playerLabel} aria-hidden="true">Player {p.id}</span>
+            <div className={`${styles.flipCard} ${p.revealed ? styles.flipped : ''}`} aria-hidden="true">
+              <div className={styles.flipInner}>
+                <div className={styles.flipFront}><QuestionBall size={40} /></div>
+                <div className={styles.flipBack}><PoolBall ball={p.ball} size={40} /></div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className={styles.gameActions}>
+        {showHideAll ? (
+          <button
+            className={`${styles.ghostBtn} ${styles.ghostBtnHideAll}`}
+            onClick={onHideAll}
+            disabled={reassigning}
+          >
+            Hide all
+          </button>
+        ) : (
+          <button
+            className={`${styles.ghostBtn} ${confirmReveal ? styles.ghostBtnConfirm : ''}`}
+            onClick={handleRevealAll}
+            disabled={reassigning}
+          >
+            {confirmReveal ? 'Tap again to confirm' : 'Reveal all'}
+          </button>
+        )}
+        <div className={styles.gameActionsRow}>
+          <button
+            className={`${styles.secondaryBtn} ${reassigning ? styles.secondaryBtnActive : ''}`}
+            onClick={onRedeal}
+            disabled={reassigning}
+          >
+            {reassigning ? `${shuffleDisplay.word} ${shuffleDisplay.frame}` : 'Reassign balls'}
+          </button>
+          <button className={styles.primaryBtn} onClick={onNewGame} disabled={reassigning}>New game</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
+export default function KellyPoolPage() {
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [reassigning, setReassigning] = useState(false);
+  const [fadeIn, setFadeIn] = useState(false);
+  const [shuffleDisplay, setShuffleDisplay] = useState({ word: '', frame: '' });
+  const [setupExiting, setSetupExiting] = useState(false);
+
+  useEffect(() => {
+    const prev = document.title;
+    document.title = 'Kelly Pool';
+    return () => { document.title = prev; };
+  }, []);
+
+  function start(count: number) {
+    localStorage.setItem(STORAGE_KEY, String(count));
+    setSetupExiting(false);
+    setFadeIn(true);
+    setPlayers(dealBalls(count));
+  }
+
+  function toggle(id: number) {
+    setPlayers(ps => {
+      const anyRevealed = ps.some(p => p.revealed);
+      const tapped = ps.find(p => p.id === id);
+      if (tapped?.revealed) {
+        // Hide the tapped ball
+        return ps.map(p => p.id === id ? { ...p, revealed: false } : p);
+      } else if (anyRevealed) {
+        // Another ball is showing — hide it, don't reveal tapped
+        return ps.map(p => ({ ...p, revealed: false }));
+      } else {
+        // Nothing revealed — reveal tapped
+        return ps.map(p => ({ ...p, revealed: p.id === id }));
+      }
+    });
+  }
+
+  function redeal() {
+    if (reassigning) return;
+    const count = players.length;
+
+    const words = [...SHUFFLE_WORDS, `Rolling a D${count}`];
+    const word = pickRandom(words);
+    const anim = pickRandom(SHUFFLE_ANIMS);
+    const frameMs = Math.floor(TOTAL_MS / anim.length);
+
+    let frame = 0;
+    setShuffleDisplay({ word, frame: anim[0] });
+    const interval = setInterval(() => {
+      frame = (frame + 1) % anim.length;
+      setShuffleDisplay({ word, frame: anim[frame] });
+    }, frameMs);
+
+    setReassigning(true);
+    setFadeIn(false);
+    setPlayers(ps => ps.map(p => ({ ...p, revealed: false })));
+    setTimeout(() => {
+      clearInterval(interval);
+      setPlayers(dealBalls(count));
+      setReassigning(false);
+    }, TOTAL_MS);
+  }
+
+  function revealAll() {
+    setPlayers(ps => ps.map(p => ({ ...p, revealed: true })));
+  }
+
+  function hideAll() {
+    setPlayers(ps => ps.map(p => ({ ...p, revealed: false })));
+  }
+
+  function newGame() {
+    setPlayers([]);
+  }
+
+  return (
+    <div className={styles.page}>
+      {players.length === 0 && (
+        <div className={`${styles.gradientBg} ${setupExiting ? styles.gradientBgExit : ''}`} />
+      )}
+      <div className={styles.topBar}>
+        <Link to="/projects" className={styles.backLink}>← projects</Link>
+        <Link to="/projects/kellypool-legacy" className={styles.legacyLink}>Legacy version →</Link>
+      </div>
+
+      {players.length === 0
+        ? <SetupScreen onStart={start} onExitStart={() => setSetupExiting(true)} />
+        : <GameScreen
+            players={players}
+            onToggle={toggle}
+            onRedeal={redeal}
+            onNewGame={newGame}
+            onRevealAll={revealAll}
+            onHideAll={hideAll}
+            reassigning={reassigning}
+            fadeIn={fadeIn}
+            shuffleDisplay={shuffleDisplay}
+          />
+      }
+    </div>
+  );
+}
