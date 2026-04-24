@@ -1,35 +1,15 @@
-import { Link } from 'react-router-dom';
-import styles from './projects.module.scss';
-import ProjectCard from '../../components/ProjectCard/ProjectCard';
-import { CATEGORY_ORDER, CATEGORY_LABELS, getProjectsByCategory } from '../../data/projects';
+import ProjectsList from './ProjectsList';
 
-function Projects() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.multiHeader}>
-        <h1>projects</h1>
-        <h1>projects</h1>
-        <h1>projects</h1>
-      </div>
+const theme: React.CSSProperties = {
+  '--bg':          '#243c2f',
+  '--text':        '#fff4e4',
+  '--text-dim':    '#eac1b8',
+  '--accent':      '#dfb161',
+  '--accent-hover':'#edc97a',
+  '--border':      '#0f1208',
+  '--row-hover':   'rgba(223, 177, 97, 0.1)',
+} as React.CSSProperties;
 
-      <div>
-        <Link to="/">back to home</Link>
-      </div>
-
-      {CATEGORY_ORDER.map(category => (
-        <div key={category} className={styles.projectEntriesWrapper}>
-          <div className={styles.projectGroupTitleWrapper}>
-            <h2 className={styles.projectGroupTitle}>{CATEGORY_LABELS[category]}</h2>
-          </div>
-          <section className={styles.projectGroup}>
-            {getProjectsByCategory(category).map(project => (
-              <ProjectCard key={project.slug} project={project} />
-            ))}
-          </section>
-        </div>
-      ))}
-    </main>
-  );
+export default function Projects() {
+  return <ProjectsList theme={theme} />;
 }
-
-export default Projects;

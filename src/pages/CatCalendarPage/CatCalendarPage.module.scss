@@ -1,0 +1,48 @@
+$paper: #f5f0e8;
+$ink: #2c2416;
+$accent: #7a5c3a;
+$border: #c9b99a;
+$muted: #9a8878;
+
+.cat-calendar {
+  min-height: 100vh;
+  background: $paper;
+  color: $ink;
+}
+
+// ─── NavBar overrides ─────────────────────────────────────────────────────────
+
+.cat-calendar__nav {
+  --nav-back-color: #{$muted};
+  --nav-title-color: #{$accent};
+  background: #fff;
+  border-bottom: 1px solid $border;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+// ─── Footer overrides ─────────────────────────────────────────────────────────
+
+.cat-calendar__footer {
+  --footer-text-color: #{$muted};
+  --footer-link-color: #{$accent};
+  border-top: 1px solid $border;
+}
+
+// ─── Print: hide everything except the print grid inside SummaryScreen ────────
+
+@media print {
+  @page {
+    size: letter landscape;
+    margin: 0.35in;
+  }
+
+  .cat-calendar__nav {
+    display: none !important;
+  }
+
+  .cat-calendar__footer {
+    display: none !important;
+  }
+}

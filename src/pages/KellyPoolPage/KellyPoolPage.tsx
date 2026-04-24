@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './KellyPoolPage.module.scss';
+import NavBar from '../../components/NavBar/NavBar';
+import Footer from '../../components/Footer/Footer';
+import SEO from '../../components/SEO/SEO';
+import { useFavicon } from '../../hooks/useFavicon';
 
 const TOTAL_MS = 400; // fixed duration for the reassign shake
 
@@ -51,16 +55,16 @@ function getBallColor(ball: number) {
 function PoolBall({ ball, size = 72 }: { ball: number; size?: number }) {
   const color = getBallColor(ball);
   const stripe = ball > 8;
-  const numSize = Math.round(size * 0.32);
 
   return (
     <div
-      className={styles.poolBall}
+      className={styles['kelly-pool__pool-ball']}
       style={{ width: size, height: size, backgroundColor: stripe ? '#fff' : color }}
       aria-hidden="true"
     >
-      {stripe && <div className={styles.stripe} style={{ backgroundColor: color }} />}
-      <span className={styles.ballNumber} style={{ fontSize: numSize, width: size * 0.44, height: size * 0.44 }}>
+      {stripe && <div className={styles['kelly-pool__stripe']} style={{ backgroundColor: color }} />}
+      <div className={styles['kelly-pool__ball-sheen']} />
+      <span className={styles['kelly-pool__ball-number']}>
         {ball}
       </span>
     </div>
@@ -71,12 +75,13 @@ function QuestionBall({ size = 72 }: { size?: number }) {
   const numSize = Math.round(size * 0.38);
   return (
     <div
-      className={styles.questionBall}
+      className={styles['kelly-pool__question-ball']}
       style={{ width: size, height: size }}
       aria-hidden="true"
     >
+      <div className={styles['kelly-pool__ball-sheen']} />
       <span
-        className={styles.questionInner}
+        className={styles['kelly-pool__question-inner']}
         style={{ fontSize: numSize, width: size * 0.54, height: size * 0.54 }}
       >
         ?
@@ -129,28 +134,28 @@ function SetupScreen({ onStart, onExitStart }: { onStart: (count: number) => voi
   }
 
   return (
-    <div className={`${styles.screen} ${exiting ? styles.screenExit : ''}`}>
-      <h1 className={styles.title}>Kelly Pool Generator</h1>
-      <p className={styles.subtitle}>How many players?</p>
+    <div className={`${styles['kelly-pool__screen']} ${exiting ? styles['kelly-pool__screen--exit'] : ''}`}>
+      <h1 className={styles['kelly-pool__title']}>Kelly Pool Generator</h1>
+      <p className={styles['kelly-pool__subtitle']}>How many players?</p>
 
-      <div className={styles.stepper}>
-        <button className={styles.stepBtn} onClick={decrement} disabled={count <= 1}>−</button>
-        <div className={styles.stepValueWrapper}>
+      <div className={styles['kelly-pool__stepper']}>
+        <button className={styles['kelly-pool__step-btn']} onClick={decrement} disabled={count <= 1}>−</button>
+        <div className={styles['kelly-pool__step-value-wrapper']}>
           <span
             key={count}
             className={[
-              styles.stepValue,
-              direction === 'up' ? styles.stepValueUp : '',
-              direction === 'down' ? styles.stepValueDown : '',
+              styles['kelly-pool__step-value'],
+              direction === 'up' ? styles['kelly-pool__step-value--up'] : '',
+              direction === 'down' ? styles['kelly-pool__step-value--down'] : '',
             ].join(' ')}
           >
             {count}
           </span>
         </div>
-        <button className={styles.stepBtn} onClick={increment} disabled={count >= 15}>+</button>
+        <button className={styles['kelly-pool__step-btn']} onClick={increment} disabled={count >= 15}>+</button>
       </div>
 
-      <button className={styles.primaryBtn} onClick={handleDeal} disabled={exiting}>Deal balls ➔</button>
+      <button className={styles['kelly-pool__primary-btn']} onClick={handleDeal} disabled={exiting}>Deal balls ➔</button>
     </div>
   );
 }
@@ -187,15 +192,15 @@ function GameScreen({ players, onToggle, onRedeal, onNewGame, reassigning, fadeI
   }, [reassigning, showHideAll]);
 
   return (
-    <div className={styles.gameScreen}>
-      <div className={styles.playerList}>
+    <div className={styles['kelly-pool__game-screen']}>
+      <div className={styles['kelly-pool__player-list']}>
         {players.map((p, i) => (
           <div
             key={p.id}
             className={[
-              styles.playerRow,
-              reassigning ? (i % 2 === 0 ? styles.playerRowShuffling : styles.playerRowShufflingAlt) : '',
-              (!reassigning && fadeIn) ? styles.playerRowFadeIn : '',
+              styles['kelly-pool__player-row'],
+              reassigning ? (i % 2 === 0 ? styles['kelly-pool__player-row--shuffling'] : styles['kelly-pool__player-row--shuffling-alt']) : '',
+              (!reassigning && fadeIn) ? styles['kelly-pool__player-row--fade-in'] : '',
             ].join(' ')}
             style={reassigning
               ? { animationDuration: `${TOTAL_MS}ms` }
@@ -212,21 +217,21 @@ function GameScreen({ players, onToggle, onRedeal, onNewGame, reassigning, fadeI
             tabIndex={reassigning ? -1 : 0}
             onKeyDown={e => { if (!reassigning && (e.key === 'Enter' || e.key === ' ')) onToggle(p.id); }}
           >
-            <span className={styles.playerLabel} aria-hidden="true">Player {p.id}</span>
-            <div className={`${styles.flipCard} ${p.revealed ? styles.flipped : ''}`} aria-hidden="true">
-              <div className={styles.flipInner}>
-                <div className={styles.flipFront}><QuestionBall size={40} /></div>
-                <div className={styles.flipBack}><PoolBall ball={p.ball} size={40} /></div>
+            <span className={styles['kelly-pool__player-label']} aria-hidden="true">Player {p.id}</span>
+            <div className={`${styles['kelly-pool__flip-card']} ${p.revealed ? styles['kelly-pool__flip-card--flipped'] : ''}`} aria-hidden="true">
+              <div className={styles['kelly-pool__flip-inner']}>
+                <div className={styles['kelly-pool__flip-front']}><QuestionBall size={40} /></div>
+                <div className={styles['kelly-pool__flip-back']}><PoolBall ball={p.ball} size={40} /></div>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className={styles.gameActions}>
+      <div className={styles['kelly-pool__game-actions']}>
         {showHideAll ? (
           <button
-            className={`${styles.ghostBtn} ${styles.ghostBtnHideAll}`}
+            className={`${styles['kelly-pool__ghost-btn']} ${styles['kelly-pool__ghost-btn--hide-all']}`}
             onClick={onHideAll}
             disabled={reassigning}
           >
@@ -234,22 +239,22 @@ function GameScreen({ players, onToggle, onRedeal, onNewGame, reassigning, fadeI
           </button>
         ) : (
           <button
-            className={`${styles.ghostBtn} ${confirmReveal ? styles.ghostBtnConfirm : ''}`}
+            className={`${styles['kelly-pool__ghost-btn']} ${confirmReveal ? styles['kelly-pool__ghost-btn--confirm'] : ''}`}
             onClick={handleRevealAll}
             disabled={reassigning}
           >
             {confirmReveal ? 'Tap again to confirm' : 'Reveal all'}
           </button>
         )}
-        <div className={styles.gameActionsRow}>
+        <div className={styles['kelly-pool__game-actions-row']}>
           <button
-            className={`${styles.secondaryBtn} ${reassigning ? styles.secondaryBtnActive : ''}`}
+            className={`${styles['kelly-pool__secondary-btn']} ${reassigning ? styles['kelly-pool__secondary-btn--active'] : ''}`}
             onClick={onRedeal}
             disabled={reassigning}
           >
             {reassigning ? `${shuffleDisplay.word} ${shuffleDisplay.frame}` : 'Reassign balls'}
           </button>
-          <button className={styles.primaryBtn} onClick={onNewGame} disabled={reassigning}>New game</button>
+          <button className={styles['kelly-pool__primary-btn']} onClick={onNewGame} disabled={reassigning}>New game</button>
         </div>
       </div>
     </div>
@@ -259,17 +264,12 @@ function GameScreen({ players, onToggle, onRedeal, onNewGame, reassigning, fadeI
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function KellyPoolPage() {
+  useFavicon('/favicon.svg');
   const [players, setPlayers] = useState<Player[]>([]);
   const [reassigning, setReassigning] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
   const [shuffleDisplay, setShuffleDisplay] = useState({ word: '', frame: '' });
   const [setupExiting, setSetupExiting] = useState(false);
-
-  useEffect(() => {
-    const prev = document.title;
-    document.title = 'Kelly Pool';
-    return () => { document.title = prev; };
-  }, []);
 
   function start(count: number) {
     localStorage.setItem(STORAGE_KEY, String(count));
@@ -334,14 +334,18 @@ export default function KellyPoolPage() {
   }
 
   return (
-    <div className={styles.page}>
+    <div className={styles['kelly-pool']}>
+      <SEO title="Kelly Pool Generator" description="Free Kelly pool pea generator. Randomly assign numbered pills to 2–15 players — no shake bottle needed. Play pea pool anywhere, instantly." />
       {players.length === 0 && (
-        <div className={`${styles.gradientBg} ${setupExiting ? styles.gradientBgExit : ''}`} />
+        <div className={`${styles['kelly-pool__gradient-bg']} ${setupExiting ? styles['kelly-pool__gradient-bg--exit'] : ''}`} />
       )}
-      <div className={styles.topBar}>
-        <Link to="/projects" className={styles.backLink}>← projects</Link>
-        <Link to="/projects/kellypool-legacy" className={styles.legacyLink}>Legacy version →</Link>
-      </div>
+      <NavBar
+        title="Kelly Pool Generator"
+        className={styles['kelly-pool__nav']}
+        rightContent={
+          <Link to="/projects/kellypool-legacy" className={styles['kelly-pool__legacy-link']}>Legacy version →</Link>
+        }
+      />
 
       {players.length === 0
         ? <SetupScreen onStart={start} onExitStart={() => setSetupExiting(true)} />
@@ -357,6 +361,7 @@ export default function KellyPoolPage() {
             shuffleDisplay={shuffleDisplay}
           />
       }
+      <Footer projectSlug="kellypool" className={styles['kelly-pool__footer']} />
     </div>
   );
 }

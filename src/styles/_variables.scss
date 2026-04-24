@@ -1,0 +1,6 @@
+// Shared breakpoints
+$bp-mobile: 640px; // main layout shift — unifies 600px / 620px / 640px used across the project
+$bp-small:  480px; // compact game / app layouts (KellyPool game grid, SummaryScreen tight view)
+
+// Shared max-widths
+$max-width-content: 1200px; // default page content cap (home and projects use their own widths)

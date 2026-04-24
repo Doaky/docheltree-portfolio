@@ -1,1 +1,0 @@
-{"root":["./src/App.tsx","./src/index.tsx","./src/react-app-env.d.ts","./src/reportWebVitals.ts","./src/components/ProjectCard/ProjectCard.tsx","./src/data/projects.ts","./src/pages/HomePage/home.tsx","./src/pages/ProjectDetailPage/projectDetail.tsx","./src/pages/ProjectsPage/projects.tsx"],"version":"6.0.2"}

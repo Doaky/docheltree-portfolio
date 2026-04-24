@@ -1,0 +1,54 @@
+// ─── Shared NavBar ────────────────────────────────────────────────────────────
+// Handles layout and structure only. Background and color are provided by each
+// page via the `className` prop using CSS custom properties:
+//   --nav-back-color   color for the "← projects" link
+//   --nav-title-color  color for the center title
+
+.nav-bar {
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nav-bar__inner {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.nav-bar__back-link {
+  color: var(--nav-back-color, currentColor);
+  text-decoration: none;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.nav-bar__title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 50%;
+  text-align: center;
+  color: var(--nav-title-color, currentColor);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity 150ms ease;
+}
+
+.nav-bar__right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}

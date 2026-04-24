@@ -1,0 +1,190 @@
+@use '../../styles/variables' as v;
+
+.home {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 48px 16px;
+  display: flex;
+  flex-direction: column;
+  min-width: 310px;
+}
+
+// ── Hero ──────────────────────────────────────────────
+.home__hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.home__name-animation {
+  max-width: 700px;
+  width: 100%;
+  height: auto;
+  filter: sepia(0.4) saturate(0.8) brightness(1.1);
+  display: block;
+}
+
+.home__tagline {
+  margin: auto 0 0;
+  color: var(--color-text-dim);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  transition: opacity 300ms ease;
+  text-align: center;
+
+  &::before { content: "✷ "; color: var(--color-accent); }
+  &::after  { content: " ✷"; color: var(--color-accent); }
+}
+
+.home__tagline--visible { opacity: 1; }
+.home__tagline--hidden  { opacity: 0; }
+
+.home__divider {
+  margin-top: 1.5rem;
+  color: var(--color-border);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+// ── Content row ───────────────────────────────────────
+.home__content {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+// ── Photo frame ───────────────────────────────────────
+.home__photo-frame {
+  margin: 0;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.home__frame-corner {
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  line-height: 1;
+  user-select: none;
+}
+
+.home__frame-corner--bottom-right {
+  align-self: flex-end;
+  margin-right: 1px;
+}
+
+.home__profile-img {
+  width: 254px;
+  height: auto;
+  display: block;
+}
+
+// ── Bio column ────────────────────────────────────────
+.home__bio {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.home__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.home__section-label {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  user-select: none;
+  margin-bottom: 0.25rem;
+}
+
+.home__info-row {
+  display: flex;
+  gap: 1rem;
+  line-height: 1.6;
+}
+
+.home__info-key {
+  color: var(--color-text-dim);
+  min-width: 2.5rem;
+  user-select: none;
+}
+
+.home__blurb {
+  margin: 0;
+  color: var(--color-text);
+  max-width: 440px;
+  line-height: 1.6;
+}
+
+// ── Links list ────────────────────────────────────────
+.home__links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.home__link-item {
+  display: flex;
+  gap: 1rem;
+  line-height: 1.9;
+}
+
+.home__link-label {
+  min-width: 5rem;
+  color: var(--color-text-dim);
+  user-select: none;
+}
+
+.home__link-anchor {
+  color: var(--color-accent);
+  text-decoration: none;
+  position: relative;
+  transition: color 250ms ease;
+
+  &::after {
+    content: " ⤳";
+    opacity: 0;
+    transition: opacity 250ms ease, padding-left 250ms ease;
+    padding-left: 0;
+  }
+
+  &:hover {
+    color: var(--color-accent-hover);
+
+    &::after {
+      opacity: 1;
+      padding-left: 4px;
+    }
+  }
+}
+
+// ── Responsive ────────────────────────────────────────
+@media (max-width: v.$bp-mobile) {
+  .home {
+    padding: 24px 20px 16px;
+  }
+
+  .home__content {
+    flex-direction: column;
+  }
+
+  .home__name-animation {
+    max-width: 100%;
+  }
+
+  .home__divider {
+    display: none;
+  }
+}

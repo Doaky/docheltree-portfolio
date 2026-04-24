@@ -1,0 +1,54 @@
+// ─── Shared Footer ────────────────────────────────────────────────────────────
+// No background set — inherits from page. Each page can pass a `className` to
+// supply color overrides via CSS custom properties:
+//   --footer-text-color   color for the label and email text
+//   --footer-link-color   color for the email link (defaults to --footer-text-color)
+
+.footer {
+  flex-shrink: 0;
+}
+
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 1.75rem;
+}
+
+.footer__feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.footer__prompt {
+  font-size: 0.75rem;
+  color: var(--footer-text-color, currentColor);
+  opacity: 0.6;
+  letter-spacing: 0.02em;
+}
+
+.footer__email {
+  font-size: 0.8rem;
+  color: var(--footer-link-color, var(--footer-text-color, currentColor));
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.footer__kofi {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.footer__kofi-img {
+  height: 36px;
+  display: block;
+}

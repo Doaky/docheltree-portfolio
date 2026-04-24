@@ -1,3 +1,5 @@
+@use '../../styles/variables' as v;
+
 @keyframes shake {
   from, to { transform: translate3d(0, 0, 0); }
   10%, 30%, 50%, 70%, 90% { transform: translate3d(-10px, 0, 0); }
@@ -14,66 +16,42 @@
   to { transform: translate3d(0, 0, 0); opacity: 1; }
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.page {
+.kelly-pool-legacy {
   min-height: 100vh;
   background-color: #49796b;
-  font-size: 18px;
-  line-height: 1.5;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.viewContainer {
-  max-width: 1000px;
+.kelly-pool-legacy__view {
+  flex: 1;
+  max-width: v.$max-width-content;
   margin: 0 auto;
-  padding: 36px;
+  padding: 40px;
   color: #fff;
 
   h1 {
-    font-size: 28px;
+    font-size: 31px;
     font-weight: 600;
     letter-spacing: -0.02em;
     margin-top: 0;
-    margin-bottom: 32px;
+    margin-bottom: 35px;
   }
 }
 
-.navRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+// ─── NavBar overrides ─────────────────────────────────────────────────────────
+
+.kelly-pool-legacy__nav {
+  --nav-back-color: rgba(255, 255, 255, 0.6);
+  --nav-title-color: rgba(255, 255, 255, 0.85);
 }
 
-.backLink {
-  display: inline-block;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  text-decoration: none;
-
-  &:after {
-    content: none;
-  }
-
-  &:hover {
-    color: #fff;
-  }
-}
-
-.updatedLink {
+.kelly-pool-legacy__updated-link {
   display: inline-block;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   opacity: 0.7;
-
-  &:after {
-    content: none;
-  }
 
   &:hover {
     color: #fff;
@@ -81,125 +59,133 @@
   }
 }
 
-/* +/- Stepper */
-.stepper {
-  display: flex;
-  align-items: center;
-  gap: 0;
+/* Player count dropdown */
+.kelly-pool-legacy__select-wrapper {
+  margin-bottom: 31px;
   width: fit-content;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 4px;
 }
 
-.stepperBtn {
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 1;
-  width: 52px;
-  height: 52px;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 150ms ease;
-
-  &:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.15);
-  }
-
-  &:disabled {
-    opacity: 0.3;
-    cursor: default;
-  }
-}
-
-.stepperValue {
-  font-size: 22px;
-  font-weight: 600;
-  min-width: 52px;
-  text-align: center;
-  border-left: 2px solid rgba(255, 255, 255, 0.5);
-  border-right: 2px solid rgba(255, 255, 255, 0.5);
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stepperLabel {
-  font-size: 13px;
+.kelly-pool-legacy__player-select {
+  font-size: 18px;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 0 0 28px 2px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 11px 18px;
+  cursor: pointer;
+  appearance: auto;
+  transition: border-color 150ms ease;
+
+  option {
+    background: #2e5c4e;
+    color: #fff;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #fff;
+  }
 }
 
 /* Player list */
-.playerList {
+.kelly-pool-legacy__player-list {
   padding: 0;
   list-style: none;
-  margin-bottom: 24px;
+  margin-bottom: 26px;
   overflow: hidden;
 }
 
-.shake {
+.kelly-pool-legacy__player-list--shake {
   animation: shake 0.5s;
 }
 
-.playerRow {
+.kelly-pool-legacy__player-row {
   display: flex;
   align-items: center;
-  height: 52px;
+  height: 57px;
   margin-bottom: 4px;
   animation: float-in-right 0.4s ease;
 }
 
-.playerLabel {
-  font-size: 16px;
+.kelly-pool-legacy__player-label {
+  font-size: 18px;
   font-weight: 500;
-  min-width: 100px;
+  min-width: 110px;
 }
 
-.ballDisplay {
+.kelly-pool-legacy__ball-display {
   display: flex;
   align-items: center;
   flex: 1;
-
-  img {
-    width: 40px;
-    height: 40px;
-    margin: 0;
-    padding-left: 12px;
-    animation: float-in-left 0.3s ease;
-    background-color: #49796b;
-  }
+  animation: float-in-left 0.3s ease;
 }
 
-.poolBallText {
+// ─── CSS Pool Ball ─────────────────────────────────────────────────────────────
+
+.kelly-pool-legacy__css-ball {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
   position: relative;
-  z-index: -1;
-  right: 25px;
-  bottom: 1px;
-  animation: fade-in 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid #000;
+}
+
+.kelly-pool-legacy__css-ball-stripe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 70%;
+  top: 15%;
+}
+
+// Arc highlight matching the SVG specular — a border-arc centered on the ball,
+// rotated so the top quarter sits at the 9-to-12 o'clock (upper-left) position.
+.kelly-pool-legacy__css-ball-sheen {
+  position: absolute;
+  width: 55%;
+  height: 53%;
+  top: 38%;
+  left: 38%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  border-top-color: #fff;
+  pointer-events: none;
+}
+
+.kelly-pool-legacy__css-ball-number {
+  position: relative;
+  z-index: 1;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #000;
+  flex-shrink: 0;
 }
 
 /* Reveal button */
-.revealBtn {
-  background: none;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+.kelly-pool-legacy__reveal-btn {
+  background: rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.8);
   color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-size: 14px;
+  padding: 9px 18px;
+  font-size: 18px;
   margin-left: auto;
-  transition: background 150ms, color 150ms;
+  transition: background 150ms ease, color 150ms ease;
+  min-width: 83px;
 
   &:hover {
     background: rgba(255, 255, 255, 0.1);
@@ -207,17 +193,23 @@
   }
 }
 
+// ─── Footer overrides ─────────────────────────────────────────────────────────
+
+.kelly-pool-legacy__footer {
+  --footer-text-color: rgba(255, 255, 255, 0.7);
+  --footer-link-color: #fff;
+}
+
 /* Reassign button */
-.reassignBtn {
-  font-size: 15px;
+.kelly-pool-legacy__reassign-btn {
+  background: rgba(0, 0, 0, 0.1);
+  font-size: 18px;
   font-weight: 500;
-  height: 44px;
-  padding: 0 20px;
+  height: 48px;
+  padding: 0 22px;
   cursor: pointer;
   color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  background: none;
+  border: 2px solid rgba(255, 255, 255, 0.8);
   transition: background 150ms ease, border-color 150ms ease;
 
   &:hover {

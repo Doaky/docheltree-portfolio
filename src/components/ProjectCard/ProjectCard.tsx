@@ -12,11 +12,11 @@ function ProjectCard({ project }: Props) {
   return (
     <Link className={styles.card} to={to}>
       {project.image && (
-        <img className={styles.image} src={project.image} alt={project.title} />
+        <img className={styles['card__image']} src={project.image} alt={project.title} />
       )}
-      <h3 className={styles.title}>{project.title}</h3>
-      {project.date && <p className={styles.date}>{project.date}</p>}
-      <p className={styles.description}>{project.shortDescription}</p>
+      <h3 className={styles['card__title']}>{project.title}</h3>
+      {project.date && <p className={styles['card__date']}>{project.date}</p>}
+      <p className={styles['card__description']}>{project.shortDescription}</p>
     </Link>
   );
 }

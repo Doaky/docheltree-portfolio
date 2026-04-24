@@ -1,6 +1,41 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './KellyPoolLegacyPage.module.scss';
+import NavBar from '../../components/NavBar/NavBar';
+import Footer from '../../components/Footer/Footer';
+import SEO from '../../components/SEO/SEO';
+import { useFavicon } from '../../hooks/useFavicon';
+
+// ─── CSS Pool Ball ─────────────────────────────────────────────────────────────
+
+const BALL_COLORS: Record<number, string> = {
+  1: '#f6ad2d', 2: '#1e519e', 3: '#e8383d', 4: '#69318e',
+  5: '#ed6d2b', 6: '#43b153', 7: '#a74f62', 8: '#302623',
+};
+
+function getBallColor(n: number) {
+  return BALL_COLORS[n > 8 ? n - 8 : n];
+}
+
+function PoolBall({ ball }: { ball: number }) {
+  const color = getBallColor(ball);
+  const stripe = ball > 8;
+  return (
+    <div
+      className={styles['kelly-pool-legacy__css-ball']}
+      style={{ backgroundColor: stripe ? '#fff' : color }}
+      aria-hidden="true"
+    >
+      {stripe && (
+        <div className={styles['kelly-pool-legacy__css-ball-stripe']} style={{ backgroundColor: color }} />
+      )}
+      <div className={styles['kelly-pool-legacy__css-ball-sheen']} />
+      <span className={styles['kelly-pool-legacy__css-ball-number']}>{ball}</span>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 interface Player {
   playerId: number;
@@ -29,21 +64,17 @@ interface PlayerRowProps {
 
 function PlayerRow({ player, onToggle }: PlayerRowProps) {
   return (
-    <li className={styles.playerRow}>
-      <span className={styles.playerLabel}>Player {player.playerId}</span>
+    <li className={styles['kelly-pool-legacy__player-row']}>
+      <span className={styles['kelly-pool-legacy__player-label']}>Player {player.playerId}</span>
 
       {player.visible && (
-        <div className={styles.ballDisplay}>
-          <img
-            src={`/poolballs/${player.assignedBall}.svg`}
-            alt={`${player.assignedBall} ball`}
-          />
-          <span className={styles.poolBallText}>{player.assignedBall}</span>
+        <div className={styles['kelly-pool-legacy__ball-display']}>
+          <PoolBall ball={player.assignedBall} />
         </div>
       )}
 
       <button
-        className={styles.revealBtn}
+        className={styles['kelly-pool-legacy__reveal-btn']}
         onClick={() => onToggle(player.playerId)}
       >
         {player.visible ? 'Hide' : 'Show'}
@@ -53,15 +84,11 @@ function PlayerRow({ player, onToggle }: PlayerRowProps) {
 }
 
 function KellyPoolLegacyPage() {
+  useFavicon('/favicon.svg');
   const [playerCount, setPlayerCount] = useState(2);
   const [players, setPlayers] = useState<Player[]>(() => assignBalls(2));
   const [shaking, setShaking] = useState(false);
 
-  useEffect(() => {
-    const prev = document.title;
-    document.title = 'Kelly Pool Generator';
-    return () => { document.title = prev; };
-  }, []);
 
   function updateCount(next: number) {
     if (next < MIN_PLAYERS || next > MAX_PLAYERS) return;
@@ -82,37 +109,32 @@ function KellyPoolLegacyPage() {
   }
 
   return (
-    <section className={styles.page}>
-      <div className={styles.viewContainer}>
-        <div className={styles.navRow}>
-          <Link to="/projects" className={styles.backLink}>← back to projects</Link>
-          <Link to="/projects/kellypool" className={styles.updatedLink}>Updated version →</Link>
-        </div>
-
+    <section className={styles['kelly-pool-legacy']}>
+      <SEO title="Kelly Pool (Legacy)" description="Legacy Kelly Pool generator." />
+      <NavBar
+        title="Kelly Pool (Legacy)"
+        className={styles['kelly-pool-legacy__nav']}
+        rightContent={
+          <Link to="/projects/kellypool" className={styles['kelly-pool-legacy__updated-link']}>Updated version →</Link>
+        }
+      />
+      <div className={styles['kelly-pool-legacy__view']}>
         <h1>Kelly Pool Generator</h1>
 
-        <div className={styles.stepper}>
-          <button
-            className={styles.stepperBtn}
-            onClick={() => updateCount(playerCount - 1)}
-            disabled={playerCount <= MIN_PLAYERS}
-            aria-label="Decrease player count"
+        <div className={styles['kelly-pool-legacy__select-wrapper']}>
+          <select
+            className={styles['kelly-pool-legacy__player-select']}
+            value={playerCount}
+            onChange={e => updateCount(Number(e.target.value))}
+            aria-label="Number of players"
           >
-            −
-          </button>
-          <span className={styles.stepperValue}>{playerCount}</span>
-          <button
-            className={styles.stepperBtn}
-            onClick={() => updateCount(playerCount + 1)}
-            disabled={playerCount >= MAX_PLAYERS}
-            aria-label="Increase player count"
-          >
-            +
-          </button>
+            {Array.from({ length: MAX_PLAYERS }, (_, i) => i + 1).map(n => (
+              <option key={n} value={n}>{n} players</option>
+            ))}
+          </select>
         </div>
-        <p className={styles.stepperLabel}>players</p>
 
-        <ul className={`${styles.playerList} ${shaking ? styles.shake : ''}`}>
+        <ul className={`${styles['kelly-pool-legacy__player-list']} ${shaking ? styles['kelly-pool-legacy__player-list--shake'] : ''}`}>
           {players.map(player => (
             <PlayerRow
               key={player.playerId}
@@ -123,11 +145,12 @@ function KellyPoolLegacyPage() {
         </ul>
 
         {players.length > 0 && (
-          <button className={styles.reassignBtn} onClick={reassignBalls}>
+          <button className={styles['kelly-pool-legacy__reassign-btn']} onClick={reassignBalls}>
             Reassign Balls
           </button>
         )}
       </div>
+      <Footer projectSlug="kellypool-legacy" className={styles['kelly-pool-legacy__footer']} />
     </section>
   );
 }

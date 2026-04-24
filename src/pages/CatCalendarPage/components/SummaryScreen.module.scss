@@ -1,0 +1,183 @@
+$paper: #f5f0e8;
+$ink: #2c2416;
+$accent: #7a5c3a;
+$border: #c9b99a;
+$muted: #9a8878;
+
+.summary {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2rem;
+}
+
+// ─── Top row: title + action buttons ─────────────────────────────────────────
+
+.summaryTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.summaryTitle {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.5rem;
+  color: $accent;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.summaryActions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.actionBtn {
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 4px;
+  padding: 0.45rem 0.9rem;
+  font-family: 'Inconsolata', monospace;
+  font-size: 0.82rem;
+  color: $accent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+
+  &:hover {
+    background: $accent;
+    color: #fff;
+    border-color: $accent;
+  }
+}
+
+.actionBtnPrimary {
+  background: $accent;
+  color: #fff;
+  border-color: $accent;
+
+  &:hover {
+    background: #5c4228;
+    border-color: #5c4228;
+  }
+}
+
+// ─── Weather row ──────────────────────────────────────────────────────────────
+
+.weatherRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.weatherInfo {
+  font-family: 'Inconsolata', monospace;
+  font-size: 0.85rem;
+  color: $muted;
+}
+
+.editSetupBtn {
+  background: none;
+  border: 1px solid $border;
+  border-radius: 4px;
+  padding: 0.2rem 0.6rem;
+  font-family: 'Inconsolata', monospace;
+  font-size: 0.78rem;
+  color: $accent;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover {
+    background: $accent;
+    color: #fff;
+    border-color: $accent;
+  }
+}
+
+// ─── Month grid ───────────────────────────────────────────────────────────────
+
+.screenGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+
+  @media (max-width: 720px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ─── Start over ───────────────────────────────────────────────────────────────
+
+.startOverRow {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.startOverBtn {
+  background: none;
+  border: none;
+  color: $muted;
+  font-family: 'Inconsolata', monospace;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: $accent;
+  }
+}
+
+// ─── Print layout — hidden on screen ─────────────────────────────────────────
+// Two landscape pages, 6 months each in a 3×2 grid of fixed-size cards.
+// Card dimensions: ~3.27in × 3.7in on letter landscape with 0.35in margins.
+
+.printRoot {
+  display: none;
+}
+
+.printPage {
+  display: none;
+}
+
+@media print {
+  .summary {
+    padding: 0;
+    max-width: none;
+  }
+
+  .summaryTop,
+  .weatherRow,
+  .screenGrid,
+  .startOverRow {
+    display: none !important;
+  }
+
+  .printRoot {
+    display: block !important;
+  }
+
+  .printPage {
+    // Landscape letter printable area: (11 - 0.7in) × (8.5 - 0.7in) = 10.3 × 7.8in
+    // 3 cols, 2 rows, 0.18in gaps → each card ≈ 3.3in × 3.8in fixed
+    display: grid !important;
+    grid-template-columns: repeat(3, 3.27in);
+    grid-template-rows: repeat(2, 3.66in);
+    gap: 0.18in;
+    width: 10.26in;
+    height: 7.5in;
+    box-sizing: border-box;
+
+    &:first-child {
+      break-after: page;
+    }
+  }
+}

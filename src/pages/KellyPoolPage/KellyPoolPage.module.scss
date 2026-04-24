@@ -1,6 +1,20 @@
+@use '../../styles/variables' as v;
+
+// ─── Gradient animation ───────────────────────────────────────────────────────
+// Change $gradient-end-vmax to resize the blob; the enter animation always
+// starts from 15% of that value automatically.
+
+$gradient-end-vmax: 70;
+
+@property --kp-gradient-size {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
 // ─── Page shell ───────────────────────────────────────────────────────────────
 
-.page {
+.kelly-pool {
   min-height: 100dvh;
   background: #0d1f16;
   color: #e8f5ee;
@@ -11,46 +25,39 @@
   position: relative;
 }
 
-.gradientBg {
+.kelly-pool__gradient-bg {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(120vmax at 50% 50%, rgba(74, 222, 128, 0.22), transparent);
+  --kp-gradient-size: #{$gradient-end-vmax}vmax;
+  background: radial-gradient(var(--kp-gradient-size) at 50% 40%, rgba(74, 222, 128, 0.22), transparent);
   animation: gradientEnter 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-.gradientBgExit {
+.kelly-pool__gradient-bg--exit {
   animation: gradientExit 320ms cubic-bezier(0.4, 0, 1, 1) both;
 }
 
 @keyframes gradientEnter {
-  from { transform: scale(0.96); }
-  to   { transform: scale(1); }
+  from { --kp-gradient-size: #{$gradient-end-vmax * 0.15}vmax; }
+  to   { --kp-gradient-size: #{$gradient-end-vmax}vmax; }
 }
 
 @keyframes gradientExit {
   from { transform: scale(1); }
-  to   { transform: scale(1.05); }
+  to   { transform: scale(1.15); }
 }
 
-.topBar {
-  padding: 1rem 1.25rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+// ─── NavBar overrides ─────────────────────────────────────────────────────────
+
+.kelly-pool__nav {
+  --nav-back-color: #6dbf8a;
+  --nav-title-color: #a8c8b4;
+  position: relative;
+  z-index: 1;
 }
 
-.backLink {
-  color: #6dbf8a;
-  text-decoration: none;
-  font-size: 0.875rem;
-  letter-spacing: 0.04em;
-
-  &:hover { color: #a8e6bc; }
-  &:after { content: none; }
-}
-
-.legacyLink {
+.kelly-pool__legacy-link {
   color: #6dbf8a;
   text-decoration: none;
   font-size: 0.875rem;
@@ -58,12 +65,11 @@
   opacity: 0.7;
 
   &:hover { opacity: 1; }
-  &:after { content: none; }
 }
 
 // ─── Setup screen ─────────────────────────────────────────────────────────────
 
-.screen {
+.kelly-pool__screen {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -77,7 +83,7 @@
   animation: screenEnter 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-.screenExit {
+.kelly-pool__screen--exit {
   animation: screenExit 320ms cubic-bezier(0.4, 0, 1, 1) both;
 }
 
@@ -91,26 +97,26 @@
   to   { opacity: 0; transform: scale(1.05); }
 }
 
-.title {
+.kelly-pool__title {
   font-size: clamp(2rem, 8vw, 3rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   margin: 0;
 }
 
-.subtitle {
+.kelly-pool__subtitle {
   font-size: 1.1rem;
   color: #a8c8b4;
   margin: 0;
 }
 
-.stepper {
+.kelly-pool__stepper {
   display: flex;
   align-items: center;
   gap: 1.25rem;
 }
 
-.stepBtn {
+.kelly-pool__step-btn {
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -134,8 +140,8 @@
   }
 }
 
-.stepValueWrapper {
-  min-width: 2.5rem;
+.kelly-pool__step-value-wrapper {
+  min-width: 46px;
   height: 3.5rem;
   overflow: hidden;
   display: flex;
@@ -143,19 +149,18 @@
   justify-content: center;
 }
 
-.stepValue {
+.kelly-pool__step-value {
   font-size: 2.5rem;
   font-weight: 700;
-  min-width: 2.5rem;
   text-align: center;
   display: block;
 }
 
-.stepValueUp {
+.kelly-pool__step-value--up {
   animation: stepSlideDown 160ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-.stepValueDown {
+.kelly-pool__step-value--down {
   animation: stepSlideUp 160ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
@@ -171,7 +176,7 @@
 
 // ─── Buttons ──────────────────────────────────────────────────────────────────
 
-.primaryBtn {
+.kelly-pool__primary-btn {
   padding: 0.875rem 2rem;
   border-radius: 9999px;
   border: none;
@@ -187,7 +192,7 @@
   &:active { transform: scale(0.97); }
 }
 
-.secondaryBtn {
+.kelly-pool__secondary-btn {
   padding: 0 2rem;
   height: 3rem;
   line-height: 1;
@@ -211,7 +216,12 @@
   &:disabled { cursor: default; }
 }
 
-.ghostBtn {
+.kelly-pool__secondary-btn--active {
+  color: #4ade80;
+  animation: shufflePulse 0.45s ease both;
+}
+
+.kelly-pool__ghost-btn {
   padding: 0 2rem;
   height: 3rem;
   line-height: 1;
@@ -229,25 +239,22 @@
   &:disabled { cursor: default; opacity: 0.4; }
 }
 
-.ghostBtnConfirm {
+.kelly-pool__ghost-btn--confirm {
   color: #f87171;
 
   &:hover { color: #fca5a5; }
 }
 
-.ghostBtnHideAll {
+.kelly-pool__ghost-btn--hide-all {
   border-color: rgba(239, 68, 68, 0.45);
   color: #f87171;
 
   &:hover:not(:disabled) { color: #fca5a5; border-color: rgba(239, 68, 68, 0.75); }
 }
 
-.secondaryBtnActive {
-  color: #4ade80;
-  animation: shufflePulse 0.45s ease both;
-}
+// ─── Player row animations ────────────────────────────────────────────────────
 
-.playerRowShuffling {
+.kelly-pool__player-row--shuffling {
   animation: shufflePulse ease both;
   cursor: default;
   pointer-events: none;
@@ -265,7 +272,7 @@
   75%        { transform: translateX(-3px); }
 }
 
-.playerRowShufflingAlt {
+.kelly-pool__player-row--shuffling-alt {
   animation: shufflePulseAlt ease both;
   cursor: default;
   pointer-events: none;
@@ -273,21 +280,25 @@
 
 // ─── Game screen ──────────────────────────────────────────────────────────────
 
-.gameScreen {
+.kelly-pool__game-screen {
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 0.5rem 1.5rem 2.5rem;
   gap: 2rem;
+  max-width: v.$max-width-content;
+  width: 100%;
+  margin: 0 auto;
+  align-self: stretch;
 }
 
-.playerList {
+.kelly-pool__player-list {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.playerRow {
+.kelly-pool__player-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -305,7 +316,7 @@
   &:active { background: rgba(15, 35, 24, 0.7); }
 }
 
-.playerRowFadeIn {
+.kelly-pool__player-row--fade-in {
   animation: rowFadeIn 300ms ease both;
 }
 
@@ -314,13 +325,13 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.playerLabel {
+.kelly-pool__player-label {
   font-size: 1.1rem;
   font-weight: 600;
   color: #c8e8d4;
 }
 
-.gameActions {
+.kelly-pool__game-actions {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -328,39 +339,38 @@
   margin-top: auto;
 }
 
-.gameActionsRow {
+.kelly-pool__game-actions-row {
   display: flex;
   gap: 0.75rem;
   justify-content: center;
 
-  @media (max-width: 480px) {
+  @media (max-width: v.$bp-small) {
     flex-direction: column;
     width: 100%;
 
-    .primaryBtn,
-    .secondaryBtn {
+    .kelly-pool__primary-btn,
+    .kelly-pool__secondary-btn {
       width: 100%;
     }
   }
 }
 
-// Make reveal all full-width on mobile (it sits outside .gameActionsRow)
-@media (max-width: 480px) {
-  .ghostBtn {
+@media (max-width: v.$bp-small) {
+  .kelly-pool__ghost-btn {
     width: 100%;
   }
 }
 
 // ─── Flip card ────────────────────────────────────────────────────────────────
 
-.flipCard {
+.kelly-pool__flip-card {
   width: 40px;
   height: 40px;
   perspective: 400px;
   flex-shrink: 0;
 }
 
-.flipInner {
+.kelly-pool__flip-inner {
   width: 100%;
   height: 100%;
   position: relative;
@@ -368,12 +378,12 @@
   transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.flipCard.flipped .flipInner {
+.kelly-pool__flip-card--flipped .kelly-pool__flip-inner {
   transform: rotateY(180deg);
 }
 
-.flipFront,
-.flipBack {
+.kelly-pool__flip-front,
+.kelly-pool__flip-back {
   position: absolute;
   inset: 0;
   border-radius: 50%;
@@ -383,17 +393,17 @@
   justify-content: center;
 }
 
-.flipFront {
+.kelly-pool__flip-front {
   background: transparent;
 }
 
-.flipBack {
+.kelly-pool__flip-back {
   transform: rotateY(180deg);
 }
 
 // ─── Question ball ────────────────────────────────────────────────────────────
 
-.questionBall {
+.kelly-pool__question-ball {
   border-radius: 50%;
   background: #1a3326;
   display: flex;
@@ -402,7 +412,7 @@
   flex-shrink: 0;
 }
 
-.questionInner {
+.kelly-pool__question-inner {
   border-radius: 50%;
   background: #2d5a3d;
   display: flex;
@@ -415,29 +425,39 @@
 
 // ─── Pool ball ────────────────────────────────────────────────────────────────
 
-.poolBall {
+.kelly-pool__pool-ball {
   border-radius: 50%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow:
-    inset -4px -4px 8px rgba(0, 0, 0, 0.35),
-    inset 3px 3px 6px rgba(255, 255, 255, 0.25),
-    0 4px 16px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   flex-shrink: 0;
 }
 
-.stripe {
+.kelly-pool__stripe {
   position: absolute;
   left: 0;
   right: 0;
-  height: 42%;
-  top: 29%;
+  height: 70%;
+  top: 15%;
 }
 
-.ballNumber {
+.kelly-pool__ball-sheen {
+  position: absolute;
+  width: 55%;
+  height: 53%;
+  top: 38%;
+  left: 38%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  border-top-color: #fff;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.kelly-pool__ball-number {
   position: relative;
   z-index: 1;
   background: #fff;
@@ -445,15 +465,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-size: 14px;
+  width: 18px;
+  height: 18px;
+  font-family: 'Chivo Mono', monospace;
+  font-weight: 300;
   color: #111;
   line-height: 1;
   flex-shrink: 0;
 }
 
-.questionMark {
+.kelly-pool__question-mark {
   font-size: 2rem;
   font-weight: 700;
   color: #4ade80;
   user-select: none;
+}
+
+// ─── Footer overrides ─────────────────────────────────────────────────────────
+
+.kelly-pool__footer {
+  --footer-text-color: #a8c8b4;
+  --footer-link-color: #6dbf8a;
+  position: relative;
+  z-index: 1;
 }

@@ -1,0 +1,333 @@
+@use '../../../styles/mixins' as m;
+
+$paper: #f5f0e8;
+$paper-dark: #ede8df;
+$ink: #2c2416;
+$accent: #7a5c3a;
+$border: #c9b99a;
+$muted: #9a8878;
+$disabled: #c8bfb5;
+
+// ─── Month Header ─────────────────────────────────────────────────────────────
+
+.month-editor__month-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: $accent;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  flex-wrap: wrap;
+  border-radius: 6px 6px 0 0;
+}
+
+.month-editor__header-month {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+  min-width: 90px;
+}
+
+.month-editor__header-sep {
+  opacity: 0.5;
+  padding: 0 0.25rem;
+}
+
+.month-editor__header-days,
+.month-editor__header-temp,
+.month-editor__header-weather {
+  white-space: nowrap;
+}
+
+// ─── Editor Layout ────────────────────────────────────────────────────────────
+
+.month-editor {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1rem 1rem 0;
+}
+
+.month-editor__card {
+  border: 1px solid $border;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+// T-shaped table: birthdays | divider | events
+.month-editor__t-table {
+  display: flex;
+  min-height: 220px;
+  border-bottom: 1px solid $border;
+}
+
+.month-editor__t-divider {
+  width: 1px;
+  background: $border;
+  flex-shrink: 0;
+}
+
+// ─── Panel (shared by Birthday + Event) ───────────────────────────────────────
+
+.month-editor__panel {
+  flex: 1;
+  padding: 1rem;
+  min-width: 0;
+}
+
+.month-editor__panel-title {
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+  color: $accent;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: normal;
+}
+
+// ─── Add Row (shared by both panels) ──────────────────────────────────────────
+
+.month-editor__add-row {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.month-editor__input {
+  background: #fff;
+  border: 1px solid $border;
+  border-radius: 4px;
+  padding: 0.35rem 0.5rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: $ink;
+  outline: none;
+  transition: border-color 0.15s;
+
+  &:focus {
+    border-color: $accent;
+  }
+
+  &::placeholder {
+    color: #c0b0a0;
+  }
+}
+
+.month-editor__input--day {
+  width: 52px;
+  flex-shrink: 0;
+}
+
+.month-editor__input--name {
+  flex: 1;
+  min-width: 0;
+}
+
+.month-editor__add-btn {
+  background: $accent;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #5c4228;
+  }
+}
+
+.month-editor__input-error {
+  font-size: 0.8rem;
+  color: #a04040;
+  margin: 0 0 0.4rem;
+}
+
+// ─── Item Lists ───────────────────────────────────────────────────────────────
+
+.month-editor__item-list {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  font-size: 0.88rem;
+
+  &.month-editor__item-list--two-col {
+    columns: 2;
+    column-gap: 0.75rem;
+  }
+}
+
+.month-editor__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+  break-inside: avoid;
+  color: $ink;
+
+  &.month-editor__item--disabled span {
+    color: $disabled;
+    text-decoration: line-through;
+  }
+}
+
+.month-editor__holiday-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  flex: 1;
+}
+
+.month-editor__checkbox {
+  accent-color: $accent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.month-editor__remove-btn {
+  background: none;
+  border: none;
+  color: $muted;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0 0.15rem;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: color 0.15s;
+
+  &:hover {
+    color: #a04040;
+  }
+}
+
+// ─── Cat Customizer ───────────────────────────────────────────────────────────
+
+@keyframes slideFromRight {
+  from { transform: translateX(14px); opacity: 0.3; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes slideFromLeft {
+  from { transform: translateX(-14px); opacity: 0.3; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+.month-editor__slide--right {
+  animation: slideFromRight 0.18s ease-out forwards;
+}
+
+.month-editor__slide--left {
+  animation: slideFromLeft 0.18s ease-out forwards;
+}
+
+.month-editor__cat-customizer {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.25rem 1rem;
+  background: #ede8df;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+// Preview area (left) — equal width to carousels (50-50)
+.month-editor__cat-preview-area {
+  flex: 1;
+  min-width: 120px;
+}
+
+.month-editor__cat-placeholder-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border: 1px solid $border;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.month-editor__cat-placeholder-layer {
+  padding: 0.4rem 0.5rem;
+  font-size: 0.78rem;
+  color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+}
+
+.month-editor__cat-image-preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid $border;
+  border-radius: 4px;
+  overflow: hidden;
+  background: $paper;
+}
+
+.month-editor__cat-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+// Carousels (right) — equal width to preview (50-50)
+.month-editor__cat-carousels {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 120px;
+}
+
+.month-editor__carousel-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.month-editor__arrow-btn {
+  @include m.fill-button($border, $accent);
+  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.month-editor__carousel-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.month-editor__part-placeholder {
+  width: 100%;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.month-editor__part-thumb {
+  height: 36px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}

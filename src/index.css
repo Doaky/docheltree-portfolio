@@ -1,13 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Chivo+Mono:wght@300&display=swap");
+
+:root {
+  --color-bg:           #243c2f;
+  --color-surface:      #1e3327;
+  --color-text:         #fff4e4;
+  --color-text-dim:     #eac1b8;
+  --color-accent:       #dfb161;
+  --color-accent-hover: #edc97a;
+  --color-border:       #0f1208;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
+  background: var(--color-bg);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Inconsolata", monospace;
+  font-size: 18px;
+  line-height: 1.4;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+#grain-overlay {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  overflow: hidden;
+}
+
+#grain-overlay.grain-active {
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

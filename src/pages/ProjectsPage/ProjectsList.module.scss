@@ -1,0 +1,150 @@
+@use '../../styles/variables' as v;
+
+// Default theme (overridable via CSS custom properties on .projects)
+$default-bg:           #0D0B25;
+$default-text:         #E2E1FF;
+$default-text-dim:     #9D9BCC;
+$default-accent:       #5A56E8;
+$default-accent-hover: #7B78FF;
+$default-border:       #2A2860;
+
+.projects {
+  --bg:           #{$default-bg};
+  --text:         #{$default-text};
+  --text-dim:     #{$default-text-dim};
+  --accent:       #{$default-accent};
+  --accent-hover: #{$default-accent-hover};
+  --border:       #{$default-border};
+  --row-hover:    rgba(90, 86, 232, 0.08);
+
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+  max-width: 820px;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+// ── Header ────────────────────────────────────────────
+.projects__header {
+  display: flex;
+  align-items: baseline;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.projects__back-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 200ms ease;
+
+  &:hover { color: var(--accent-hover); }
+}
+
+.projects__path-label {
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.projects__divider {
+  color: var(--border);
+  font-size: 0.85rem;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 2rem;
+}
+
+// ── Category section ──────────────────────────────────
+.projects__category-section {
+  margin-bottom: 2rem;
+}
+
+.projects__category-label {
+  color: var(--accent);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+  user-select: none;
+}
+
+// ── Project rows ──────────────────────────────────────
+.projects__row-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.projects__row {
+  display: block;
+  padding: 0.55rem 0.6rem;
+  text-decoration: none;
+  color: var(--text);
+  border-left: 3px solid transparent;
+  transition: background 150ms ease, border-color 150ms ease;
+
+  &:hover {
+    background: var(--row-hover);
+    border-left-color: var(--accent);
+
+    .projects__row-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+.projects__row-top {
+  display: grid;
+  grid-template-columns: 10rem 1fr 4rem 1.5rem;
+  align-items: baseline;
+  gap: 0.75rem;
+
+  @media (max-width: v.$bp-mobile) {
+    grid-template-columns: 1fr 3.5rem 1.5rem;
+
+    .projects__row-slug { display: none; }
+  }
+}
+
+.projects__row-slug {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.projects__row-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.projects__row-date {
+  color: var(--text);
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.projects__row-arrow {
+  color: var(--accent);
+  font-size: 1rem;
+  text-align: right;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.projects__row-desc {
+  margin: 0.2rem 0 0;
+  padding-left: calc(10rem + 0.75rem); // align under title
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  line-height: 1.45;
+
+  @media (max-width: v.$bp-mobile) {
+    padding-left: 0;
+  }
+}

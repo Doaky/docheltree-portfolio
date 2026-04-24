@@ -1,0 +1,16 @@
+// White-background button that fills with $fill-color on hover.
+// Used by WizardNav, SummaryScreen, and MonthEditor arrow buttons.
+@mixin fill-button($border-color, $fill-color, $text-color: $fill-color) {
+  background: #fff;
+  border: 1px solid $border-color;
+  color: $text-color;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+
+  &:hover {
+    background: $fill-color;
+    color: #fff;
+    border-color: $fill-color;
+  }
+}

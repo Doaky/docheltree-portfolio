@@ -1,33 +1,47 @@
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+@use '../../styles/variables' as v;
 
-.main {
+// ─── Page shell ───────────────────────────────────────────────────────────────
+
+.project-detail {
   background-color: #124409;
   background-image: url(https://grainy-gradients.vercel.app/noise.svg);
-  font-family: "Inconsolata", monospace;
-  font-size: 18px;
-  line-height: 1.25;
   color: #f9b4a9;
   min-height: 100vh;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+// ─── NavBar overrides ─────────────────────────────────────────────────────────
+
+.project-detail__nav {
+  --nav-back-color: #b47f40;
+  --nav-title-color: #f9b4a9;
+}
+
+// ─── Content ──────────────────────────────────────────────────────────────────
+
+.project-detail__content {
+  max-width: v.$max-width-content;
+  width: 100%;
+  margin: 0 auto;
   padding: 32px 48px;
-}
+  flex: 1;
 
-.backLink {
-  display: inline-block;
-  color: #b47f40;
-  text-decoration: none;
-  margin-bottom: 32px;
-
-  &:after {
-    content: none;
-  }
-
-  &:hover {
-    color: #794f00 !important;
+  @media (max-width: v.$bp-mobile) {
+    padding: 24px 20px;
   }
 }
 
-.category {
+// ─── Footer overrides ─────────────────────────────────────────────────────────
+
+.project-detail__footer {
+  --footer-text-color: #f9b4a9;
+  --footer-link-color: #b47f40;
+}
+
+// ─── Typography ───────────────────────────────────────────────────────────────
+
+.project-detail__category {
   margin: 0 0 4px;
   font-size: 0.85em;
   opacity: 0.7;
@@ -35,29 +49,29 @@
   letter-spacing: 0.1em;
 }
 
-.title {
+.project-detail__title {
   margin: 0 0 8px;
   font-size: 2em;
 }
 
-.date {
+.project-detail__date {
   margin: 0 0 24px;
   opacity: 0.7;
 }
 
-.image {
+.project-detail__image {
   max-width: 600px;
   width: 100%;
   height: auto;
   margin-bottom: 24px;
 }
 
-.description {
+.project-detail__description {
   max-width: 650px;
   margin-bottom: 24px;
 }
 
-.launchLink {
+.project-detail__launch-link {
   display: inline-block;
   margin-bottom: 24px;
   color: #f9b4a9;
@@ -65,44 +79,40 @@
   border: 2px solid #f9b4a9;
   padding: 8px 16px;
 
-  &:after {
-    content: none;
-  }
-
   &:hover {
     background-color: #f9b4a9;
     color: #124409 !important;
   }
 }
 
-.links {
+.project-detail__links {
   list-style: none;
   padding: 0;
   margin-bottom: 24px;
+}
 
-  li {
-    margin-bottom: 8px;
-  }
+.project-detail__link-item {
+  margin-bottom: 8px;
+}
 
-  a {
-    color: #b47f40;
-    text-decoration: none;
+.project-detail__link-anchor {
+  color: #b47f40;
+  text-decoration: none;
 
-    &:hover {
-      color: #794f00;
-    }
+  &:hover {
+    color: #794f00;
   }
 }
 
-.tags {
+.project-detail__tags {
   list-style: none;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
 
-  li {
-    font-size: 0.8em;
-    opacity: 0.7;
-  }
+.project-detail__tag {
+  font-size: 0.8em;
+  opacity: 0.7;
 }

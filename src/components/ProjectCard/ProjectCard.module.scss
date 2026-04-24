@@ -8,35 +8,27 @@
   text-decoration: none;
   cursor: pointer;
 
-  &:after {
-    content: none;
-  }
-
   &:hover {
     color: #124409 !important;
   }
-
-  &:hover:after {
-    content: none;
-  }
 }
 
-.image {
+.card__image {
   width: 100%;
   height: auto;
 }
 
-.title {
+.card__title {
   margin: 0 0 8px;
 }
 
-.date {
+.card__date {
   margin: 0 0 4px;
   font-size: 0.8em;
   opacity: 0.6;
 }
 
-.description {
+.card__description {
   margin: 0;
   font-size: 0.9em;
 }

@@ -1,0 +1,127 @@
+@use 'sass:color';
+@use '../../../styles/mixins' as m;
+
+$ink: #2c2416;
+$accent: #7a5c3a;
+$border: #c9b99a;
+$muted: #9a8878;
+
+.wizard-nav {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem 1.25rem;
+}
+
+.wizard-nav__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.wizard-nav__btn {
+  @include m.fill-button($border, $accent, $accent);
+  border-radius: 4px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.wizard-nav__btn--next {
+  font-weight: 600;
+}
+
+.wizard-nav__btn-arrow--left,
+.wizard-nav__btn-arrow--right {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1rem;
+  line-height: 1;
+  min-width: 1em;
+  justify-content: center;
+}
+
+// ─── Step indicator ───────────────────────────────────────────────────────────
+
+.wizard-nav__step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.wizard-nav__step-label {
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  color: $accent;
+  letter-spacing: 0.03em;
+}
+
+.wizard-nav__step-count {
+  font-size: 0.72rem;
+  color: $muted;
+}
+
+// ─── Dots ─────────────────────────────────────────────────────────────────────
+
+.wizard-nav__dots {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.wizard-nav__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: $border;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  flex-shrink: 0;
+
+  &:hover {
+    background: color.adjust(#7a5c3a, $lightness: 20%);
+    transform: scale(1.25);
+  }
+}
+
+.wizard-nav__dot--active {
+  background: $accent;
+
+  &:hover {
+    background: $accent;
+    transform: scale(1.1);
+  }
+}
+
+// ─── See Summary shortcut ─────────────────────────────────────────────────────
+
+.wizard-nav__summary-shortcut {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.6rem;
+}
+
+.wizard-nav__summary-shortcut-btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.8rem;
+  color: $muted;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0.15rem 0;
+  transition: color 0.15s;
+
+  &:hover {
+    color: $accent;
+  }
+}
