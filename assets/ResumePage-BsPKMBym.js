@@ -1,0 +1,1 @@
+import{r as e,t}from"./react-DKh5dO4J.js";var n=e(t(),1);function r(){return(0,n.useEffect)(()=>{window.location.replace(`/resume.pdf`)},[]),null}export{r as default};

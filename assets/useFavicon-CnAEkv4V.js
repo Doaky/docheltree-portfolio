@@ -1,0 +1,1 @@
+import{r as e,t}from"./react-DKh5dO4J.js";var n=e(t(),1);function r(e){(0,n.useEffect)(()=>{let t=document.querySelector(`link[rel="icon"][sizes="32x32"]`);if(!t)return;let n=t.getAttribute(`href`)??``,r=t.getAttribute(`type`)??``;return t.setAttribute(`href`,e),t.setAttribute(`type`,`image/svg+xml`),()=>{t.setAttribute(`href`,n),t.setAttribute(`type`,r)}},[e])}export{r as t};
