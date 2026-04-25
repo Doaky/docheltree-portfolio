@@ -1,0 +1,1 @@
+import{t as e}from"./index-DBAoKNNA.js";import{t}from"./ProjectsList-SdU1Rh8X.js";var n=e(),r={"--bg":`#243c2f`,"--text":`#fff4e4`,"--text-dim":`#eac1b8`,"--accent":`#dfb161`,"--accent-hover":`#edc97a`,"--border":`#0f1208`,"--row-hover":`rgba(223, 177, 97, 0.1)`};function i(){return(0,n.jsx)(t,{theme:r})}export{i as default};
