@@ -1,1 +1,0 @@
-import{a as e,o as t}from"./index-CwsZZTJI.js";var n=t(e(),1);function r(){(0,n.useEffect)(()=>{let e=document.getElementById(`grain-overlay`);return e?.classList.add(`grain-active`),()=>e?.classList.remove(`grain-active`)},[])}export{r as t};
