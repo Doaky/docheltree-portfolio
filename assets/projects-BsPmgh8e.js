@@ -1,0 +1,1 @@
+import{t as e}from"./index-Ds7ZqAv3.js";import{t}from"./ProjectsList-C8Sb0flr.js";import{t as n}from"./useGrain-Uiz4nr2h.js";var r=e(),i={"--bg":`#243c2f`,"--text":`#fff4e4`,"--text-dim":`#eac1b8`,"--accent":`#dfb161`,"--accent-hover":`#edc97a`,"--border":`#0f1208`,"--row-hover":`rgba(223, 177, 97, 0.1)`};function a(){return n(),(0,r.jsx)(t,{theme:i})}export{a as default};
