@@ -18,10 +18,9 @@ export default function Home() {
           src={nameAnimation}
           alt="Daniel Ocheltree"
           className={styles['home__name-animation']}
-          width="850"
-          height="161"
+          width="700"
+          height="133"
         />
-        {/* <div className={styles['home__divider']} aria-hidden="true">╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌</div> */}
       </section>
 
       <section className={styles['home__content']}>
@@ -29,7 +28,7 @@ export default function Home() {
           <span className={styles['home__frame-corner']} aria-hidden="true">
             {"╔══╗ <img src=\"pfp.webp\""}
           </span>
-          <img src={profileImg} alt="Daniel Ocheltree" className={styles['home__profile-img']} />
+          <img src={profileImg} alt="Daniel Ocheltree" className={styles['home__profile-img']} width="400" height="400" fetchPriority="high" />
           <span className={`${styles['home__frame-corner']} ${styles['home__frame-corner--bottom-right']}`} aria-hidden="true">alt="Daniel Ocheltree"/&gt; ╚══╝</span>
         </figure>
 
@@ -84,7 +83,7 @@ export default function Home() {
               </li>
               <li className={styles['home__link-item']}>
                 <label className={styles['home__link-label']}>resume</label>
-                <Link className={styles['home__link-anchor']} to="/resume">/resume.pdf</Link>
+                <a className={styles['home__link-anchor']} href="/resume.pdf" target="_blank" rel="noopener noreferrer">/resume.pdf</a>
               </li>
               <li className={styles['home__link-item']}>
                 <label className={styles['home__link-label']}>projects</label>

@@ -26,55 +26,40 @@ const routes = [
     description: 'Software Engineer and tinkerer. I build things for the web and for fun.',
   },
   {
-    path: '/resume',
-    title: `Resume — ${SITE_NAME}`,
-    description: 'Resume of Daniel Ocheltree, Senior Software Engineer.',
-  },
-  {
     path: '/projects',
-    title: `Projects — ${SITE_NAME}`,
+    title: `Projects // ${SITE_NAME}`,
     description: 'All projects by Daniel Ocheltree — web apps, documentation, and crafts.',
   },
-  // App pages
+  // App pages (bare titles — no site name)
   {
     path: '/projects/kellypool',
-    title: `Kelly Pool Generator — ${SITE_NAME}`,
+    title: 'Kelly Pool Generator',
     description: 'Free Kelly pool pea generator. Randomly assign numbered pills to 2–15 players — no shake bottle needed. Play pea pool anywhere, instantly.',
   },
   {
     path: '/projects/kellypool-legacy',
-    title: `Kelly Pool (Legacy) — ${SITE_NAME}`,
+    title: 'Kelly Pool (Legacy)',
     description: 'Legacy Kelly Pool generator.',
   },
   {
-    path: '/projects/cat-calendar',
-    title: `Cat Calendar Creator — ${SITE_NAME}`,
-    description: 'Build a printable 12-month cat calendar with custom artwork, birthdays, events, and local weather.',
-  },
-  {
     path: '/projects/tip-trainer',
-    title: `Tip Trainer — ${SITE_NAME}`,
+    title: 'Tip Trainer',
     description: 'Train your tip math with randomized restaurant receipts. Practice on your own or race friends in a timed speed round - sharpen your 20% mental math faster than your friends.',
   },
-  // Project detail pages (sourced from src/data/projects.ts)
+  // Project detail pages
   {
     path: '/projects/web-apps/kelly-pool',
-    title: `Kelly Pool Generator — ${SITE_NAME}`,
-    description: 'Free Kelly pool pea generator. Randomly assign numbered pills to 2–15 players — no shake bottle needed. Play pea pool anywhere, instantly.',
-  },
-  {
-    path: '/projects/web-apps/cat-calendar',
-    title: `Cat Calendar Creator — ${SITE_NAME}`,
-    description: 'Build a printable 12-month cat calendar with custom artwork, birthdays, events, and local weather.',
+    title: 'Kelly Pool Generator',
+    description: 'About the Kelly Pool Generator project — a free web app to randomly assign numbered pills to 2–15 players without a shake bottle.',
   },
   {
     path: '/projects/web-apps/tip-trainer',
-    title: `Tip Trainer — ${SITE_NAME}`,
-    description: 'Train your tip math with randomized restaurant receipts. Practice on your own or race friends in a timed speed round - sharpen your 20% mental math faster than your friends.',
+    title: 'Tip Trainer',
+    description: 'About the Tip Trainer project — a web app to practice 20% tip math with randomized restaurant receipts and timed speed rounds.',
   },
   {
     path: '/projects/documentation/hyperion',
-    title: `Hyperion — ${SITE_NAME}`,
+    title: `Hyperion // ${SITE_NAME}`,
     description: 'A Raspberry Pi project.',
   },
 ];

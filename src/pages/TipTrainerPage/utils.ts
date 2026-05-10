@@ -44,9 +44,8 @@ export function buildReceipt(sessionSeed: number, index: number, maxCents = 1500
   // Payment ID
   const paymentId = 'TXN-' + randomChars(rng, 8);
 
-  const tax = Math.round(subtotal * 0.1);
   const tip = Math.round(subtotal * 0.2);
-  const total = subtotal + tax + tip;
+  const total = subtotal + tip;
 
   const now = new Date();
   const mm = String(now.getMonth() + 1).padStart(2, '0');
@@ -58,7 +57,6 @@ export function buildReceipt(sessionSeed: number, index: number, maxCents = 1500
   return {
     index,
     subtotal,
-    tax,
     tip,
     total,
     approvalCode,
@@ -129,7 +127,7 @@ export function saveCheckNumber(n: number): void {
 export function buildShareText(ms: number, seed: number): string {
   const time = formatTime(ms);
   const url = `${window.location.origin}/projects/tip-trainer?seed=${seed}&ref=${Math.round(ms)}`;
-  return `⏳ ${time} ${url}`;
+  return `⏳ ${time}\n${url}`;
 }
 
 export function getComparisonMessage(myMs: number, refMs: number): string {

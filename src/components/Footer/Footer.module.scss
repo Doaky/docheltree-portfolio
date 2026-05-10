@@ -27,8 +27,7 @@
 
 .footer__prompt {
   font-size: 0.75rem;
-  color: var(--footer-text-color, currentColor);
-  opacity: 0.6;
+  color: var(--footer-prompt-color, var(--footer-text-color, currentColor));
   letter-spacing: 0.02em;
 }
 
@@ -50,5 +49,6 @@
 
 .footer__kofi-img {
   height: 36px;
+  width: auto;
   display: block;
 }

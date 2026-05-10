@@ -9,6 +9,7 @@
   padding: 40px 48px 16px;
   display: flex;
   flex-direction: column;
+  gap: 2rem;
   min-width: 310px;
 }
 
@@ -17,7 +18,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2.5rem;
 }
 
 .home__name-animation {
@@ -156,8 +156,8 @@
   &::after {
     content: " ⤳";
     opacity: 0;
-    transition: opacity 250ms ease, padding-left 250ms ease;
-    padding-left: 0;
+    display: inline-block;
+    transition: opacity 250ms ease, transform 250ms ease;
   }
 
   &:hover {
@@ -165,7 +165,7 @@
 
     &::after {
       opacity: 1;
-      padding-left: 4px;
+      transform: translateX(4px);
     }
   }
 }

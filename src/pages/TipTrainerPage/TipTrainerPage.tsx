@@ -54,7 +54,7 @@ export default function TipTrainerPage() {
 
   const [tipInput, setTipInput] = useState('');
   const [totalInput, setTotalInput] = useState('');
-  const [tipHintVisible, setTipHintVisible] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [animPhase, setAnimPhase] = useState<AnimPhase>('idle');
 
   const [speed, setSpeed] = useState<SpeedState>(() => ({
@@ -115,13 +115,13 @@ export default function TipTrainerPage() {
     setTimeout(() => {
       setTipInput('');
       setTotalInput('');
-      setTipHintVisible(false);
+      setSubmitError(null);
 
       if (mode === 'speed') {
         setSpeed(prev => {
           const newCount = prev.count + 1;
 
-          if (newCount >= 10) {
+          if (newCount >= 5) {
             cancelAnimationFrame(rafRef.current);
             const finalMs = performance.now() - startMsRef.current;
             return { ...prev, phase: 'done', count: newCount, elapsedMs: finalMs };
@@ -153,7 +153,7 @@ export default function TipTrainerPage() {
 
   const startSpeedRound = useCallback(() => {
     const seed = isChallenge ? urlParams.current.seed! : newSessionSeed();
-    const receipts = generateReceipts(seed, 10, 0);
+    const receipts = generateReceipts(seed, 5, 0);
     speedReceiptsRef.current = receipts;
 
     setSpeed(prev => ({
@@ -168,7 +168,7 @@ export default function TipTrainerPage() {
     setActiveReceipt(receipts[0]);
     setTipInput('');
     setTotalInput('');
-    setTipHintVisible(false);
+    setSubmitError(null);
 
     startMsRef.current = performance.now();
 
@@ -188,7 +188,7 @@ export default function TipTrainerPage() {
     setMode(m);
     setTipInput('');
     setTotalInput('');
-    setTipHintVisible(false);
+    setSubmitError(null);
     setAnimPhase('idle');
     cancelAnimationFrame(rafRef.current);
     setSpeed({ phase: 'idle', sessionSeed: 0, elapsedMs: 0, count: 0, referenceMs: undefined });
@@ -207,7 +207,7 @@ export default function TipTrainerPage() {
     setMode('infinite');
     setTipInput('');
     setTotalInput('');
-    setTipHintVisible(false);
+    setSubmitError(null);
     setAnimPhase('idle');
     cancelAnimationFrame(rafRef.current);
     setSpeed({ phase: 'idle', sessionSeed: 0, elapsedMs: 0, count: 0, referenceMs: undefined });
@@ -226,30 +226,39 @@ export default function TipTrainerPage() {
   const handleTipChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setTipInput(val);
+    setSubmitError(null);
 
     const parsed = parseDollars(val);
-
-    // Show hint if they tipped 20% of the balance or total instead of the subtotal
-    const balance = activeReceipt.subtotal + activeReceipt.tax;
-    const tipOnBalance = parsed !== null && parsed === Math.round(balance * 0.2);
-    const tipOnTotal = parsed !== null && parsed === Math.round(activeReceipt.total * 0.2);
-    setTipHintVisible(tipOnBalance || tipOnTotal);
-
     if (parsed !== null && parsed === activeReceipt.tip) {
-      setTipHintVisible(false);
       totalInputRef.current?.focus();
     }
   };
 
   const handleTotalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (animPhase !== 'idle') return;
-    const val = e.target.value;
-    setTotalInput(val);
+    setTotalInput(e.target.value);
+    setSubmitError(null);
+  };
 
-    const parsed = parseDollars(val);
-    if (parsed !== null && parsed === activeReceipt.total) {
-      advanceReceipt();
+  const handleSubmit = () => {
+    if (animPhase !== 'idle') return;
+    const parsedTip = parseDollars(tipInput);
+    if (parsedTip === null || parsedTip !== activeReceipt.tip) {
+      setSubmitError(
+        parsedTip !== null && parsedTip > activeReceipt.tip ? 'Too high' : 'Too low'
+      );
+      tipInputRef.current?.focus();
+      return;
     }
+    const parsedTotal = parseDollars(totalInput);
+    if (parsedTotal === null || parsedTotal !== activeReceipt.total) {
+      setSubmitError(
+        parsedTotal !== null && parsedTotal > activeReceipt.total ? 'Total too high' : 'Total too low'
+      );
+      totalInputRef.current?.focus();
+      return;
+    }
+    advanceReceipt();
   };
 
   const blocked = animPhase !== 'idle';
@@ -268,7 +277,7 @@ export default function TipTrainerPage() {
     setSpeed({ phase: 'idle', sessionSeed: 0, elapsedMs: 0, count: 0, referenceMs: undefined });
     setTipInput('');
     setTotalInput('');
-    setTipHintVisible(false);
+    setSubmitError(null);
     setAnimPhase('idle');
   }, []);
 
@@ -316,8 +325,8 @@ export default function TipTrainerPage() {
   const showCompletion = mode === 'speed' && speed.phase === 'done';
 
   return (
-    <div className={styles.page}>
-      <SEO title="Tip Trainer" description="Train your tip math with randomized restaurant receipts. Practice on your own or race friends in a timed speed round - sharpen your 20% mental math faster than your friends." favicon="🧮" />
+    <main className={styles.page}>
+      <SEO title="Tip Trainer" description="Train your tip math with randomized restaurant receipts. Practice on your own or race friends in a timed speed round - sharpen your 20% mental math faster than your friends." favicon="🧮" bare />
 
       {/* Top bar */}
       <NavBar title="Tip Trainer" className={styles.nav} />
@@ -326,7 +335,7 @@ export default function TipTrainerPage() {
       {showSpeedHud && (
         <div className={styles.speedHud}>
           <div className={styles.hudTimer}>{formatTime(speed.elapsedMs)}</div>
-          <div className={styles.hudCount}>{speed.count}/10</div>
+          <div className={styles.hudCount}>{speed.count}/5</div>
         </div>
       )}
 
@@ -387,7 +396,7 @@ export default function TipTrainerPage() {
             <div className={styles.startDesc}>
               {isChallenge && speed.referenceMs !== undefined
                 ? `Can you beat ${formatTime(speed.referenceMs)}?`
-                : '10 receipts. How fast can you go?'}
+                : '5 receipts. How fast can you go?'}
             </div>
             <button className={styles.startBtn} onClick={startSpeedRound}>
               Start
@@ -417,22 +426,6 @@ export default function TipTrainerPage() {
 
               <hr className={styles.divider} />
 
-              {/* Amounts */}
-              <div className={styles.row}>
-                <span className={styles.rowLabel}>Subtotal</span>
-                <span className={styles.rowValue}>{formatMoney(activeReceipt.subtotal)}</span>
-              </div>
-              <div className={styles.row}>
-                <span className={styles.rowLabel}>Tax (10%)</span>
-                <span className={styles.rowValue}>{formatMoney(activeReceipt.tax)}</span>
-              </div>
-              <div className={styles.row}>
-                <span className={styles.rowLabel}>Balance</span>
-                <span className={styles.rowValue}>{formatMoney(activeReceipt.subtotal + activeReceipt.tax)}</span>
-              </div>
-
-              <hr className={styles.divider} />
-
               {/* Transaction details */}
               <div className={styles.transactionSection}>
                 <div className={styles.txnRow}>
@@ -451,6 +444,14 @@ export default function TipTrainerPage() {
                   <span className={styles.txnLabel}>Card Reader</span>
                   <span className={styles.txnValue}>{activeReceipt.cardReader}</span>
                 </div>
+              </div>
+
+              <hr className={styles.divider} />
+
+              {/* Amounts */}
+              <div className={styles.row}>
+                <span className={styles.rowLabel}>Balance</span>
+                <span className={styles.rowValue}>{formatMoney(activeReceipt.subtotal)}</span>
               </div>
 
               <hr className={styles.solidDivider} />
@@ -489,9 +490,18 @@ export default function TipTrainerPage() {
                 </div>
               </div>
 
-              {/* Tip hint — reserved space, no layout shift */}
-              <div className={`${styles.tipHint}${tipHintVisible ? ` ${styles.hintVisible}` : ''}`}>
-                Tip on subtotals
+              {/* Submit row */}
+              <div className={styles.submitRow}>
+                <div className={`${styles.submitError}${submitError ? ` ${styles.submitErrorVisible}` : ''}`}>
+                  {submitError ?? ' '}
+                </div>
+                <button
+                  className={styles.submitBtn}
+                  onClick={handleSubmit}
+                  disabled={blocked}
+                >
+                  Submit
+                </button>
               </div>
 
             </div>
@@ -538,6 +548,6 @@ export default function TipTrainerPage() {
       )}
 
       <Footer projectSlug="tip-trainer" className={styles.footer} />
-    </div>
+    </main>
   );
 }

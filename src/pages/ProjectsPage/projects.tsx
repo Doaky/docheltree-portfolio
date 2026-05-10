@@ -1,4 +1,5 @@
 import ProjectsList from './ProjectsList';
+import { useGrain } from '../../hooks/useGrain';
 
 const theme: React.CSSProperties = {
   '--bg':          '#243c2f',
@@ -11,5 +12,6 @@ const theme: React.CSSProperties = {
 } as React.CSSProperties;
 
 export default function Projects() {
+  useGrain();
   return <ProjectsList theme={theme} />;
 }

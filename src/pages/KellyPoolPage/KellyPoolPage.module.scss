@@ -26,7 +26,7 @@ $gradient-end-vmax: 70;
 }
 
 .kelly-pool__gradient-bg {
-  position: absolute;
+  position: fixed;
   inset: 0;
   pointer-events: none;
   --kp-gradient-size: #{$gradient-end-vmax}vmax;

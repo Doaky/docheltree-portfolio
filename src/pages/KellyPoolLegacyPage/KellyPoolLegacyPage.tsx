@@ -109,8 +109,8 @@ function KellyPoolLegacyPage() {
   }
 
   return (
-    <section className={styles['kelly-pool-legacy']}>
-      <SEO title="Kelly Pool (Legacy)" description="Legacy Kelly Pool generator." />
+    <main className={styles['kelly-pool-legacy']}>
+      <SEO title="Kelly Pool (Legacy)" description="Legacy Kelly Pool generator." bare />
       <NavBar
         title="Kelly Pool (Legacy)"
         className={styles['kelly-pool-legacy__nav']}
@@ -151,7 +151,7 @@ function KellyPoolLegacyPage() {
         )}
       </div>
       <Footer projectSlug="kellypool-legacy" className={styles['kelly-pool-legacy__footer']} />
-    </section>
+    </main>
   );
 }
 

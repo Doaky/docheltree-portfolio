@@ -3,7 +3,7 @@
 
 $paper:   #fdfcf9;
 $ink:     #1a1614;
-$muted:   #7a7068;
+$muted:   #5a5248;
 $border:  #c8bfb0;
 $accent:  #9a5a28;
 $bg:      #d6d0c8;
@@ -23,7 +23,7 @@ $font:    'Inconsolata', 'Courier New', Courier, monospace;
 // ─── NavBar overrides ─────────────────────────────────────────────────────────
 
 .nav {
-  --nav-back-color: #5a524a;
+  --nav-back-color: #3d3530;
   --nav-title-color: #{$ink};
   background: rgba(0, 0, 0, 0.08);
   font-family: $font;
@@ -32,8 +32,9 @@ $font:    'Inconsolata', 'Courier New', Courier, monospace;
 // ─── Footer overrides ─────────────────────────────────────────────────────────
 
 .footer {
+  --footer-prompt-color: #{$muted};
   --footer-text-color: #{$muted};
-  --footer-link-color: #{$accent};
+  --footer-link-color: #7a461d; // darkened from $accent for 4.5:1 contrast on $bg
   font-family: $font;
 }
 
@@ -95,14 +96,14 @@ $font:    'Inconsolata', 'Courier New', Courier, monospace;
 }
 
 .maxInput {
-  width: 3.6rem;
+  width: 2rem;
   background: transparent;
   border: none;
   border-bottom: 1px solid $border;
   font-family: $font;
   font-size: 0.86rem;
   color: $ink;
-  text-align: right;
+  text-align: center;
   padding: 0 0 1px 0;
   outline: none;
   transition: border-color 0.15s;
@@ -377,19 +378,42 @@ $font:    'Inconsolata', 'Courier New', Courier, monospace;
   }
 }
 
-// ─── Tip Hint ────────────────────────────────────────────────────────────────
+// ─── Submit Row ──────────────────────────────────────────────────────────────
 
-.tipHint {
-  min-height: 1.3em;
+.submitRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.72rem;
+  gap: 0.6rem;
+}
+
+.submitError {
   font-size: 0.86rem;
   color: $accent;
-  text-align: center;
-  margin-top: 0.36rem;
   visibility: hidden;
+  flex: 1;
 
-  &.hintVisible {
+  &.submitErrorVisible {
     visibility: visible;
   }
+}
+
+.submitBtn {
+  font-family: $font;
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  padding: 0.42rem 1.2rem;
+  background: $ink;
+  color: $paper;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+
+  &:hover:not(:disabled) { opacity: 0.82; }
+  &:active:not(:disabled) { opacity: 0.65; }
+  &:disabled { opacity: 0.4; cursor: not-allowed; }
 }
 
 // ─── Speed Round Start Screen ────────────────────────────────────────────────

@@ -1,4 +1,5 @@
-import kofiImg from '../../assets/support_me_on_kofi_red.png';
+import kofiImg from '../../assets/support_me_on_kofi_red.webp';
+import kofiImg1x from '../../assets/support_me_on_kofi_red_1x.webp';
 import styles from './Footer.module.scss';
 
 interface FooterProps {
@@ -25,7 +26,15 @@ export default function Footer({ projectSlug, className }: FooterProps) {
           rel="noopener noreferrer"
           className={styles['footer__kofi']}
         >
-          <img src={kofiImg} alt="Support me on Ko-fi" className={styles['footer__kofi-img']} />
+          <img
+            src={kofiImg}
+            srcSet={`${kofiImg1x} 1x, ${kofiImg} 2x`}
+            alt="Support me on Ko-fi"
+            className={styles['footer__kofi-img']}
+            width="312"
+            height="63"
+            loading="lazy"
+          />
         </a>
       </div>
     </footer>

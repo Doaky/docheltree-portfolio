@@ -44,6 +44,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   transition: opacity 150ms ease;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 }
 
 .nav-bar__right {

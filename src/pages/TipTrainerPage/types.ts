@@ -3,10 +3,9 @@ export type AnimPhase = 'idle' | 'exiting' | 'entering';
 
 export interface Receipt {
   index: number;
-  subtotal: number;      // integer cents, e.g. 4783 = $47.83
-  tax: number;           // Math.round(subtotal * 0.10)
+  subtotal: number;      // integer cents — displayed as "Balance"
   tip: number;           // Math.round(subtotal * 0.20) — the correct answer
-  total: number;         // subtotal + tax + tip
+  total: number;         // subtotal + tip
   approvalCode: string;  // e.g. "A3K8F2"
   paymentId: string;     // e.g. "TXN-4B7C2E1A"
   cardReader: 'Swiped' | 'Chip';

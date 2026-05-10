@@ -334,8 +334,8 @@ export default function KellyPoolPage() {
   }
 
   return (
-    <div className={styles['kelly-pool']}>
-      <SEO title="Kelly Pool Generator" description="Free Kelly pool pea generator. Randomly assign numbered pills to 2–15 players — no shake bottle needed. Play pea pool anywhere, instantly." />
+    <main className={styles['kelly-pool']}>
+      <SEO title="Kelly Pool Generator" description="Free Kelly pool pea generator. Randomly assign numbered pills to 2–15 players — no shake bottle needed. Play pea pool anywhere, instantly." bare />
       {players.length === 0 && (
         <div className={`${styles['kelly-pool__gradient-bg']} ${setupExiting ? styles['kelly-pool__gradient-bg--exit'] : ''}`} />
       )}
@@ -362,6 +362,6 @@ export default function KellyPoolPage() {
           />
       }
       <Footer projectSlug="kellypool" className={styles['kelly-pool__footer']} />
-    </div>
+    </main>
   );
 }

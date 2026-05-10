@@ -4,6 +4,23 @@ import './index.css';
 import App from './App';
 // import reportWebVitals from './reportWebVitals';
 
+// --- ASCII Art Splash ---
+const ascii = `
+%c⢸⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀     ⠀⠀⠀⣠⣤⣶⡇
+⠀⣿⣿⣿⣷⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀     ⣀⣤⣶⣾⣿⣿⠋
+⠀⠘⢿⣿⣿⣿⣿⣦⣀⣀⣀⣀⣀⣀⣀⣀⣤⣶⣿⣿⣿⣿⣿⠇
+⠀⠀⠈⠻⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋
+⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠋
+⠀⠀⠀⢠⣿⣿⡏⠆⢹⣿⣿⣿⣿⣿⣿⠒⠈⣿⣿⣿⣇
+⠀⠀⠀⣼⣿⣿⣷⣶⣿⣿⣛⣻⣿⣿⣿⣶⣾⣿⣿⣿⣿
+⠀⠀⠀⣿⠀⠈⣿⣿⣿⣿⢟⣛⡻⣿⣿⣿⣟⠀ ⠈⣿⣿
+⠀⠀⠀⢿⣶⣿⣿⣿⣿⣿⡻⣿⡿⣿⣿⣿⣿⣶⣶⣾⣿⣷
+⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇
+`;
+console.log(ascii, "color: #dfb161; font-weight: bold; font-family: monospace;");
+console.log("%cThanks for visiting!", "color: #eac1b8; background: #243c2f; padding: 4px 48px; border-radius: 8px; font-weight: bold;");
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

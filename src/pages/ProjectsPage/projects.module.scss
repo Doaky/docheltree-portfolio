@@ -1,5 +1,6 @@
 
-// Full-viewport background via body so .main can be max-width constrained
+// Full-viewport background via body/html so .main can be max-width constrained
+html,
 body {
   background-color: #124409;
   background-image: url(https://grainy-gradients.vercel.app/noise.svg);

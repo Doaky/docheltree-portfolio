@@ -9,4 +9,5 @@ export const TAGLINES = [
   'Scrolling Spotify related artists',
   'Internationally thrifting',
   'Swearing off Instagram Recipes',
+  'Stargazing through visual snow',
 ];

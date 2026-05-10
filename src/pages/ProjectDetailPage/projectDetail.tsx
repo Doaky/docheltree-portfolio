@@ -28,7 +28,7 @@ function ProjectDetailPage() {
 
   return (
     <div className={styles['project-detail']}>
-      <SEO title={project.title} description={project.shortDescription} />
+      <SEO title={project.title} description={project.shortDescription} bare={project.category === 'web-apps'} />
       <NavBar title={project.title} className={styles['project-detail__nav']} />
 
       <main className={styles['project-detail__content']}>

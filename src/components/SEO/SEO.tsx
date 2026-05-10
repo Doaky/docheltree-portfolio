@@ -11,11 +11,12 @@ interface SEOProps {
   image?: string;
   imageAlt?: string;
   favicon?: string;
+  bare?: boolean;
 }
 
-export default function SEO({ title, description, image, imageAlt, favicon }: SEOProps) {
+export default function SEO({ title, description, image, imageAlt, favicon, bare }: SEOProps) {
   const { pathname } = useLocation();
-  const fullTitle = title.endsWith(SITE_NAME) ? title : `${title} — ${SITE_NAME}`;
+  const fullTitle = bare ? title : title.endsWith(SITE_NAME) ? title : `${title} // ${SITE_NAME}`;
 
   useEffect(() => {
     if (!favicon) return;
@@ -25,7 +26,8 @@ export default function SEO({ title, description, image, imageAlt, favicon }: SE
     link.href = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>${favicon}</text></svg>`;
     return () => { link.href = original; };
   }, [favicon]);
-  const url = `${BASE_URL}${pathname}`;
+  const canonical = pathname === '/' ? pathname : pathname.replace(/\/$/, '');
+  const url = `${BASE_URL}${canonical}`;
   const ogImage = image ?? DEFAULT_IMAGE;
   const ogImageAlt = imageAlt ?? `${fullTitle} preview`;
 
