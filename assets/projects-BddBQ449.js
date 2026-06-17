@@ -1,0 +1,1 @@
+import{t as e}from"./index-DC97dh_r.js";import{t}from"./ProjectsList-D--NY7IL.js";import{t as n}from"./useGrain-CfPWAOH2.js";var r=e(),i={"--bg":`#243c2f`,"--text":`#fff4e4`,"--text-dim":`#eac1b8`,"--accent":`#dfb161`,"--accent-hover":`#edc97a`,"--border":`#0f1208`,"--row-hover":`rgba(223, 177, 97, 0.1)`};function a(){return n(),(0,r.jsx)(t,{theme:i})}export{a as default};
