@@ -7,6 +7,7 @@ const ProjectDetailPage = lazy(() => import('./pages/ProjectDetailPage/projectDe
 const KellyPoolPage     = lazy(() => import('./pages/KellyPoolPage/KellyPoolPage'));
 const KellyPoolLegacyPage = lazy(() => import('./pages/KellyPoolLegacyPage/KellyPoolLegacyPage'));
 const TipTrainerPage    = lazy(() => import('./pages/TipTrainerPage/TipTrainerPage'));
+const WigglegramPage    = lazy(() => import('./pages/WigglegramPage/WigglegramPage'));
 const DevPage           = lazy(() => import('./pages/DevPage/DevPage'));
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/projects/kellypool-legacy" element={<KellyPoolLegacyPage />} />
           {/* <Route path="/projects/cat-calendar" element={<CatCalendarPage />} /> */}{/* WIP */}
           <Route path="/projects/tip-trainer" element={<TipTrainerPage />} />
+          <Route path="/projects/wigglegram" element={<WigglegramPage />} />
           {/* Dev — design comparison, not in sitemap */}
           <Route path="/dev" element={<DevPage />} />
           {/* Redirects */}

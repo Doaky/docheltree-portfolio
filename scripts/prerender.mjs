@@ -46,6 +46,11 @@ const routes = [
     title: 'Tip Trainer',
     description: 'Train your tip math with randomized restaurant receipts. Practice on your own or race friends in a timed speed round - sharpen your 20% mental math faster than your friends.',
   },
+  {
+    path: '/projects/wigglegram',
+    title: 'Wigglegram Maker — Nishika &amp; Nimslo 3D Film to GIF',
+    description: 'Free browser wigglegram maker for the Nishika N8000, Nishika N9000, Nimslo and other 4-lens 3D film cameras. Auto-align the frames and export looping GIFs or MP4s — no uploads.',
+  },
   // Project detail pages
   {
     path: '/projects/web-apps/kelly-pool',
@@ -56,6 +61,11 @@ const routes = [
     path: '/projects/web-apps/tip-trainer',
     title: 'Tip Trainer',
     description: 'About the Tip Trainer project — a web app to practice 20% tip math with randomized restaurant receipts and timed speed rounds.',
+  },
+  {
+    path: '/projects/web-apps/wigglegram',
+    title: 'Wigglegram Maker',
+    description: 'About the Wigglegram Maker — a free, fully in-browser tool to split Nishika and Nimslo 3D film scans, auto-align the frames, and export looping wigglegram GIFs or MP4s.',
   },
   {
     path: '/projects/documentation/hyperion',

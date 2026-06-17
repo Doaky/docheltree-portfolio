@@ -56,6 +56,17 @@ export const PROJECTS: Project[] = [
     date: '2026',
     appRoute: '/projects/tip-trainer',
   },
+  {
+    slug: 'wigglegram',
+    title: 'Wigglegram Maker',
+    category: 'web-apps',
+    shortDescription: 'Turn 3D film scans from a Nishika or Nimslo into looping wigglegram GIFs and MP4s — split, auto-align, and export entirely in your browser.',
+    fullDescription:
+      'A 100% client-side wigglegram studio for 4-lens 3D film cameras like the Nishika N8000, Nishika N9000, and Nimslo. Bulk-upload scans, split each exposure into its half-frames, then Auto-Order them by parallax and Auto-Align the backgrounds so the subject pops. Fine-tune the focal point, level crooked scans, ping-pong the loop, crop, and export an animated GIF or MP4 — encoded locally with ffmpeg.wasm, so nothing ever leaves your device.',
+    tags: ['Canvas', 'IndexedDB', 'ffmpeg.wasm', 'WebAssembly'],
+    date: '2026',
+    appRoute: '/projects/wigglegram',
+  },
   /* WIP — documentation section not ready for release
   {
     slug: 'hyperion',
